@@ -1,0 +1,45 @@
+.pj-stress {
+  display: block;
+  height: 1em;
+  background: #2cff00;
+  &-9 {
+    background: #59f705;
+    width: 90%;
+  }
+  &-8 {
+    background: #7df109;
+    width: 80%;
+  }
+  &-7 {
+    background: #a6ea0e;
+    width: 70%;
+  }
+  &-6 {
+    background: #cee313;
+    width: 60%;
+  }
+  &-5 {
+    background: #f2dd17;
+    width: 50%;
+  }
+  &-4 {
+    background: #e8a816;
+    width: 40%;
+  }
+  &-3 {
+    background: #e07c16;
+    width: 30%;
+  }
+  &-2 {
+    background: #d85315;
+    width: 20%;
+  }
+  &-1 {
+    background: #d12f14;
+    width: 10%;
+  }
+  &-0 {
+    background: #cc1313;
+    width: 1%;
+  }
+}

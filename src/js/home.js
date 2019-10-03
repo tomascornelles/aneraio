@@ -25,7 +25,7 @@ export const home = () => {
   }
 
   const _submit = (campaign) => {
-    page(`/campaign/${campaign}`)
+    if (campaign.trim()) page(`/campaign/${campaign.trim()}`)
   }
 
   _init()

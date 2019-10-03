@@ -4,5 +4,8 @@
     "firebase": "^7.0.0",
     "hyperapp": "^2.0.1",
     "page": "^1.11.5"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0"
   }
 }

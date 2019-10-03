@@ -5,6 +5,7 @@ import {pj} from './pj.js'
 import {notfound} from './notfound.js'
 
 page('/', home)
+page('/campaign', notfound)
 page('/campaign/:campaign', campaign)
 page('/campaign/:campaign/:pj', pj)
 page('*', notfound)
