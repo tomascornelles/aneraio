@@ -22,6 +22,10 @@ header {
   background-size: cover;
   flex-grow: 1;
 
+  .title {
+    color: #fff;
+  }
+
   nav {
     background: rgba($colorBg, .5);
     box-shadow: 0 -1rem 2rem rgba(0,0,0,.3);
@@ -30,6 +34,15 @@ header {
 
 .content {
   padding: 1rem;
+  
+  article {
+    max-width: 60rem;
+    margin: auto;
+    background: $colorBg;
+    padding: 1rem;
+    box-shadow: .2rem .2rem .4rem rgba($colorFg,.2);
+    border-radius: .3rem;
+  }
 }
 .content-fg1 {
   flex-grow: 1;

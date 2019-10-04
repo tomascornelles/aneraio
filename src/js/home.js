@@ -2,7 +2,8 @@ import page from 'page'
 
 export const home = () => {
   const _init = () => {
-    document.querySelector('#app').innerHTML = _template()
+    document.querySelector('.js-main').innerHTML = _template()
+    document.querySelector('.js-title').innerHTML = 'Aneraio'
     document.querySelector('.home-form').addEventListener('submit', function (e) {
       e.preventDefault()
       _submit(document.querySelector('.home-form-campaign').value)
