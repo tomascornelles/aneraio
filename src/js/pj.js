@@ -1,19 +1,19 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
-import { fbInit } from './db.js'
-import { $, render } from './utils.js'
-import '../scss/pj.scss'
+import { dbInit } from './db.js'
+import { pjTemplate, pjTemplateShort } from './templates/pj.js'
 
 export const pj = (ctx) => {
   let pj = {}
   let campaign = ctx.params.campaign
   const _init = (campaign, character) => {
-    fbInit()
+    dbInit()
+    firebase.database().ref('/campaigns/' + campaign).off()
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).on('value', function (snapshot) {
       pj = snapshot.val()
       pj.id = character
 
-      $('#app', render, _template())
+      document.querySelector('#app').innerHTML = pjTemplate(campaign, pj, true)
 
       const input = document.querySelectorAll('.pj-input')
 
@@ -22,6 +22,14 @@ export const pj = (ctx) => {
           _save(this.dataset.attribute, this.value)
         })
       }
+    })
+    firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
+      let pjs = snapshot.val()
+      let list = ''
+      for (let a = 0; a < pjs.length; a++) {
+        if (pjs[a]) list += pjTemplateShort(campaign, pjs[a], false)
+      }
+      document.querySelector('#app').innerHTML = list
     })
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).once('value', function (snapshot) {
       _save('active', true)

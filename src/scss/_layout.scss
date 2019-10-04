@@ -1,0 +1,42 @@
+.container {
+  height: 100vh;
+  margin: 0 auto;
+  box-shadow: 0 -1rem 2rem rgba(0,0,0,.3);
+}
+.row {
+  display: flex;
+  align-items: stretch;
+
+  &.vertical {
+    flex-direction: column;
+  }
+}
+
+section {
+  flex-grow: 10;
+  background: darken($colorBg,5%);
+}
+
+header {
+  background: #fff url('https://i0.wp.com/alcoholink.community/wp-content/uploads/2017/01/aiac-home-abstract-bg-orange.jpg') no-repeat center center;
+  background-size: cover;
+  flex-grow: 1;
+
+  nav {
+    background: rgba($colorBg, .5);
+    box-shadow: 0 -1rem 2rem rgba(0,0,0,.3);
+  }
+}
+
+.content {
+  padding: 1rem;
+}
+.content-fg1 {
+  flex-grow: 1;
+}
+.content-fg2 {
+  flex-grow: 2;
+}
+.hidden {
+  display: none;
+}

@@ -1,21 +1,20 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import page from 'page'
-import { fbInit } from './db.js'
-import { $, render } from './utils.js'
+import { dbInit } from './db.js'
 
 export const campaign = (ctx) => {
   let campaign = {}
   const _init = (id) => {
-    fbInit()
+    dbInit()
     firebase.database().ref('/campaigns/' + id).on('value', function (snapshot) {
       campaign = snapshot.val()
-      if (!campaign) return page('/')
+      if (!campaign) return page('/error')
       campaign.id = id
-      $('#app', render, _template())
+      document.querySelector('#app').innerHTML = _template()
     })
     if (window.sessionStorage.getItem('pj') !== null) {
-      firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: 'false'})
+      firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
       window.sessionStorage.removeItem('pj')
     }
   }

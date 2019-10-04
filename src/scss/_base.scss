@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Open+Sans:400,700&display=swap');
+html {
+  font-size: 10px;
+}
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 1.4rem;
+  font-family: $fontBase;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: $fontHeadline;
+  font-weight: 300;
+}
