@@ -4,6 +4,7 @@ export const home = () => {
   const _init = () => {
     document.querySelector('.js-main').innerHTML = _template()
     document.querySelector('.js-title').innerHTML = 'Aneraio'
+    document.querySelector('#app .content-fg2').classList.add('tab--active')
     document.querySelector('.home-form').addEventListener('submit', function (e) {
       e.preventDefault()
       _submit(document.querySelector('.home-form-campaign').value)
@@ -11,7 +12,6 @@ export const home = () => {
   }
 
   const _template = () => {
-    alert('>>>')
     return `
     <div class="home-app card text-center">
       <h2>Entra en una campaña</h2>

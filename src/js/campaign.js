@@ -12,6 +12,7 @@ export const campaign = (ctx) => {
       if (!campaign) return page('/error')
       campaign.id = id
       document.querySelector('.js-main').innerHTML = _template()
+      document.querySelector('#app .content-fg2').classList.add('tab--active')
     })
     if (window.sessionStorage.getItem('pj') !== null) {
       firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
