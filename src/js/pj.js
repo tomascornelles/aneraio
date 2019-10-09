@@ -116,9 +116,13 @@ export const pj = (ctx) => {
     })
     document.querySelector('.js-chat-input').innerHTML = input
 
-    document.querySelector('.js-command').addEventListener('click', function () {
-      _command(this.dataset.command)
-    })
+    let btnCommand = document.querySelectorAll('.js-command')
+    
+    for (let i = 0; i < btnCommand.length; i++) {
+      btnCommand[i].addEventListener('click', function () {
+        _command(this.dataset.command)
+      })
+    }
 
     document.querySelector('.js-chat-input form').addEventListener('submit', function (e) {
       e.preventDefault()
