@@ -1,3 +1,74 @@
 .chat {
-
+  max-width: 45%;
+  margin: auto;
+}
+.card {
+  &--message {
+    border-top: 1px solid #fff;
+    background: #fff;
+    margin-right: 30%;
+    margin-top: 0;
+    border-radius: .7rem;
+    border-top-left-radius: 0;
+  }
+  &--message_pj {
+    border-top: 1px solid #fff;
+    margin-left: 30%;
+    border-radius: .7rem;
+    border-bottom-right-radius: 0;
+    background: #fff;
+  }
+  &--message_dm {
+    border-top: 1px solid #fff;
+    border-radius: .7rem;
+    margin-left: 10%;
+    margin-right: 10%;
+    background:#fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 .3em 1em rgba(0,0,0,.4)
+  }
+}
+.dice {
+  display: inline-block;
+  width: 3em;
+  height: 3em;
+  text-align: center;
+  line-height: 3em;
+  font-weight: 700;
+  &.d4 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d4_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  &.d6 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d6_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  &.d8 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d8_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  &.d10 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d10_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  &.d12 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d12_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  &.d20 {
+    background: url(https://www.google.com/logos/fnbx/polyhedral_dice/d20_blank.png) center center no-repeat;
+    background-size: contain;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
 }

@@ -15,41 +15,163 @@
 section {
   flex-grow: 10;
   background: darken($colorBg,5%);
+  max-height: 85%;
+  overflow: auto;
 }
 
+$headerImg: 'https://learn.zoner.com/wp-content/uploads/2018/08/landscape-photography-at-every-hour-part-ii-photographing-landscapes-in-rain-or-shine-683x390.jpg';
+
 header {
-  background: #fff url('https://i0.wp.com/alcoholink.community/wp-content/uploads/2017/01/aiac-home-abstract-bg-orange.jpg') no-repeat center center;
-  background-size: cover;
+  background: #fff url($headerImg) no-repeat center top;
+  background-size: 100%;
+  min-height: 20%;
   flex-grow: 1;
+  position: relative;
 
   .title {
     color: #fff;
+    margin-top: -1rem;
   }
 
   nav {
-    background: rgba($colorBg, .5);
     box-shadow: 0 -1rem 2rem rgba(0,0,0,.3);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5.3rem;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    background: #fff;
+
+    .bg-image {
+      background: transparent url($headerImg) no-repeat center -100px;
+      // background: #fc0;
+      background-size: 85%;
+      transform: scale(1.2);
+      filter: blur(1rem);
+      height: 150%;
+      margin-top: -1rem;
+      opacity: .3;
+    }
+    .row {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      margin-top: -0.5rem;
+      text-shadow: 0 1px 0 rgba(255,255,255,.3);
+      overflow: hidden;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+      display: inline-block;
+      line-height: 3em;
+    }
+
+    form {
+      position: relative;
+    }
+
+    input[type=text] {
+      box-shadow: 0 .3em 1em rgba(0,0,0,.2);
+      padding-right: 4em;
+    }
+
+    .btn--input {
+      position: absolute;
+      right: 0;
+      padding: .4em 1em;
+    }
   }
 }
-
+#app {
+  border-top: 1px solid #ccc;
+}
 .content {
   padding: 1rem;
   
   article {
-    max-width: 60rem;
+    // max-width: 60rem;
     margin: auto;
-    background: $colorBg;
-    padding: 1rem;
-    box-shadow: .2rem .2rem .4rem rgba($colorFg,.2);
-    border-radius: .3rem;
   }
 }
 .content-fg1 {
   flex-grow: 1;
+  width: 25%;
 }
 .content-fg2 {
   flex-grow: 2;
+  width: 50%;
 }
 .hidden {
   display: none;
+}
+.js-list {
+  position: fixed;
+  left: 1em;
+  top: 21%;
+  h2 {
+    margin-bottom: 0;
+  }
+}
+.js-pj {
+  position: fixed;
+  right: 1em;
+  top: 21%;
+}
+
+.tabs {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  header {
+    min-height: 20%;
+    h1 {
+      font-size: 3rem;
+    }
+    nav {
+      .content-fg1 {
+        display: none;
+      }
+    }
+  }
+  #app {
+    & > .content {
+      position: relative;
+      width: 100vw;
+      display: none;
+      left: 0;
+      right: 0;
+      top: 0;
+      
+      &.tab--active {
+        display: block;
+      }
+    }
+    .chat {
+      max-width: 100%;
+      padding-bottom: 10rem;
+    }
+  }
+  .btn.btn--fab {
+    bottom: 5em;
+  }
+  .tabs {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ccc;
+    padding: .5rem;
+    box-shadow: 0 -.5rem 2rem rgba(0,0,0,.4);
+    border-top: 1px solid rgba(255,255,255,.5);
+
+    .button--active {
+      background: #fff;
+    }
+  }
 }

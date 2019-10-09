@@ -1,0 +1,60 @@
+.btn {
+  background: #eee;
+  border: 1px solid #eee;
+  font-size: 1.6rem;
+  padding: .5em 1em;
+  margin: 0;
+  border-radius: .2em;
+  cursor: pointer;
+  transition: all .2s ease;
+  text-decoration: none;
+  display: inline-block;
+  color: $colorFg;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &--principal {
+    border-color: transparent;
+    background: $colorMain;
+    color: $colorBg;
+
+    &:hover, &:focus {
+      background: lighten($colorMain, 5%);
+      box-shadow: 0 .3em 1em rgba(0,0,0,.2);
+    }
+  }
+
+  &--flat {
+    border-color: transparent;
+    background: Transparent;
+    color: $colorFg;
+
+    &:hover, &:focus {
+      background: #eee;
+      // box-shadow: 0 .3em 1em rgba(0,0,0,.2);
+    }
+  }
+
+  &--fab {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    background: $colorMain;
+    color: $colorBg;
+    border-radius: 5em;
+    border:0;
+    text-shadow: 0 1px solid rgba(0,0,0,.9);
+    text-align: center;
+    width: 3em;
+    height: 3em;
+    padding: 0;
+    z-index: 1000;
+
+    &:hover, &:focus {
+      background: lighten($colorMain, 5%);
+      box-shadow: 0 .4em .5em rgba(0,0,0,.2);
+    }
+  }
+}

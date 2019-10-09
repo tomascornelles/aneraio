@@ -1,54 +1,61 @@
-export const pjTemplate = (campaign, pj, editable) => {
-  let disabled = (editable)
-    ? ''
-    : 'disabled'
+export const pjTemplate = (pj, editable) => {
+  let contenteditable = (editable)
+    ? 'contenteditable'
+    : ''
   return `
-    <div class="pj-sheet">
-      <h2 class="pj-name">${pj.name}</h2>
-      <p><textarea data-attribute="description" class="pj-input" ${disabled}>${pj.description}</textarea></p>
+    <div class="pj-sheet card">
+      <h2 class="pj-input" data-attribute="name" ${contenteditable}>${pj.name}</h2>
+      <p class="pj-input" data-attribute="description" ${contenteditable}>${pj.description}</p>
       <table>
         <tr>
           <th>Cuerpo</th>
           <th>Mente</th>
           <th>Espíritu</th>
+          <th>Estrés</th>
         <tr>
         <tr>
-          <td><input type="text" data-attribute="body" class="pj-input" value="${pj.body}"  ${disabled}/></td>
-          <td><input type="text" data-attribute="mind" class="pj-input" value="${pj.mind}"  ${disabled}/></td>
-          <td><input type="text" data-attribute="soul" class="pj-input" value="${pj.soul}"  ${disabled}/></td>
+          <td><span data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
+          <td><span data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
+          <td><span data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
+          <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span></td>
         <tr>
       </table>
-      <p><strong>Estrés</strong>: <input type="text" data-attribute="stress" class="pj-input" value="${pj.stress}"  ${disabled}/></p>
-      <div class="pj-stress pj-stress-${pj.stress}"></div>
-      <p><strong>Rasgos</strong>:<br> <textarea data-attribute="traits" class="pj-input" ${disabled}>${pj.traits}</textarea></p>
-      <p><strong>Equipo</strong>:<br> <textarea data-attribute="equip" class="pj-input" ${disabled}>${pj.equip}</textarea></p>
-      <a href="/">Inicio</a>
-      <a href="/campaign/${campaign}">Volver a la lista</a>
+      <div class="stress stress--${pj.stress}"></div>
+      <p><strong>Rasgos</strong></p>
+      <p class="pj-input" datta-attribute="traits" ${contenteditable}>${pj.traits}</p>
+      <p><strong>Equipo</strong></p><p class="pj-input" datta-attribute="equip" ${contenteditable}>${pj.equip}</p>
     </div>
     `
 }
 
-export const pjTemplateShort = (campaign, pj, editable) => {
-  let disabled = (editable)
-    ? ''
-    : 'disabled'
+export const pjTemplateShort = (pj, editable) => {
+  let contenteditable = (editable)
+    ? 'contenteditable'
+    : ''
   return `
-    <div class="pj-sheet">
-      <h2 class="pj-name">${pj.name}</h2>
-      <div class="pj-stress pj-stress-${pj.stress}"></div>
-      <p><textarea data-attribute="description" class="pj-input" ${disabled}>${pj.description}</textarea></p>
+    <div class="pj-sheet card">
+      <h2 class="pj-input" data-attribute="name" ${contenteditable}>${pj.name}</h2>
       <table>
         <tr>
           <th>Cuerpo</th>
           <th>Mente</th>
           <th>Espíritu</th>
+          <th>Estrés</th>
         <tr>
         <tr>
-          <td><input type="text" data-attribute="body" class="pj-input" value="${pj.body}"  ${disabled}/></td>
-          <td><input type="text" data-attribute="mind" class="pj-input" value="${pj.mind}"  ${disabled}/></td>
-          <td><input type="text" data-attribute="soul" class="pj-input" value="${pj.soul}"  ${disabled}/></td>
+          <td><span data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
+          <td><span data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
+          <td><span data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
+          <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span></td>
         <tr>
       </table>
+      <div class="stress stress--${pj.stress}"></div>
     </div>
     `
+}
+
+export const pjMessages = {
+  general: (message, name) => `<p class="card card--message">${name}: ${message}</p>`,
+  pj: (message, name) => `<p class="card card--message_pj">${name}: ${message}</p>`,
+  dm: (message) => `<p class="card card--message_dm">${message}</p>`
 }

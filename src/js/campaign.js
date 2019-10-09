@@ -11,20 +11,21 @@ export const campaign = (ctx) => {
       campaign = snapshot.val()
       if (!campaign) return page('/error')
       campaign.id = id
-      document.querySelector('#app').innerHTML = _template()
+      document.querySelector('.js-main').innerHTML = _template()
     })
     if (window.sessionStorage.getItem('pj') !== null) {
       firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
       window.sessionStorage.removeItem('pj')
     }
+    document.querySelector('.js-breadcrum').innerHTML = '<a href="/">Inicio</a>'
+    document.querySelector('.js-title').innerHTML = id.toUpperCase()
   }
 
   const _template = () => {
     return `
-    <div class="campaign">
+    <div class="campaign card">
       <h2 class="campaign-name">${campaign.name}</h2>
       <div class="campaign-pjs">${_pjList()}</div>
-      <a href="/">Inicio</a>
     </div>
     `
   }
