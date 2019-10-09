@@ -11,6 +11,7 @@ export const home = () => {
   }
 
   const _template = () => {
+    alert('>>>')
     return `
     <div class="home-app card text-center">
       <h2>Entra en una campaña</h2>
@@ -20,7 +21,6 @@ export const home = () => {
           <input type="submit" value="Entrar" class="btn btn--flat">
         </form>
       </p>
-      <button class="btn fab">/roll</button>
     </div>
     `
   }

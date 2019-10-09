@@ -6,6 +6,12 @@
     "page": "^1.11.5"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "node-sass": "^4.12.0"
+  },
+  "scripts": {
+    "serve": "parcel src/index.html",
+    "build": "rimraf deploy/public && parcel build src/index.html -d deploy/public",
+    "deploy": "cd deploy && firebase deploy"
   }
 }

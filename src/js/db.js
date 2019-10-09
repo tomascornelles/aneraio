@@ -5,13 +5,14 @@ import 'firebase/database'
 export function dbInit () {
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: 'AIzaSyBab63rQ35hI2yvepn5_rTv9nQHpS_tv1g',
-    authDomain: 'aneraio-app.firebaseapp.com',
-    databaseURL: 'https://aneraio-app.firebaseio.com',
-    projectId: 'aneraio-app',
-    storageBucket: 'aneraio-app.appspot.com',
-    messagingSenderId: '906296300118',
-    appId: '1:906296300118:web:cb7ef5c338553cb32b61f7'
+    apiKey: 'AIzaSyAKGv95kC_QS4gSl8NgguRIv9ygwa17-AI',
+    authDomain: 'aneraio07.firebaseapp.com',
+    databaseURL: 'https://aneraio07.firebaseio.com',
+    projectId: 'aneraio07',
+    storageBucket: '',
+    messagingSenderId: '984485799576',
+    appId: '1:984485799576:web:c4c5eec855c96d1ff392ed',
+    measurementId: 'G-YZCF5K8R5R'
   }
 
   if (!firebase.apps.length) {
