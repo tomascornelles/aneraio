@@ -56,5 +56,65 @@
       background: lighten($colorMain, 5%);
       box-shadow: 0 .4em .5em rgba(0,0,0,.2);
     }
+
+    &.dice {
+      width: 4em;
+      height: 4em;
+      text-align: center;
+      line-height: 4em;
+      font-weight: 700;
+      background-color: transparent;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,.4);
+      opacity: .7;
+
+      &.d4 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d4_blank.png);
+        right: 21em;
+      }
+
+      &.d6 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d6_blank.png);
+        right: 17em;
+      }
+
+      &.d8 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d8_blank.png);
+        right: 13em;
+      }
+
+      &.d10 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d10_blank.png);
+        right: 9em;
+      }
+
+      &.d12 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d12_blank.png);
+        right: 5em;
+      }
+
+      &.d20 {
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d20_blank.png);
+      }
+
+      &:hover {
+        box-shadow: none;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  .btn {
+    &--fab {
+      &.dice {
+      font-size: 90%;
+      }
+    }
   }
 }

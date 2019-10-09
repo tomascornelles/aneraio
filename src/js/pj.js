@@ -74,7 +74,7 @@ export const pj = (ctx) => {
       let pjs = snapshot.val()
       let list = ''
       for (let a = 0; a < pjs.length; a++) {
-        if (pjs[a]) list += pjTemplateShort(pjs[a], false)
+        if (pjs[a] && a!= pj.id) list += pjTemplateShort(pjs[a], false)
       }
       document.querySelector('.js-list').innerHTML = list
     })
@@ -85,8 +85,13 @@ export const pj = (ctx) => {
       <article>
         <form>
           <input type="text" class="input input--wide js-chat-message" autofocus placeholder="Escribe aquí (/3d6+1 p.e. para lanzar dados)">
-          <input type="submit" value="✉️" class="btn btn--flat btn--input">
-          <a class="btn btn--fab js-command" data-command="/d20">d20</a>
+          <input type="submit" value="✉︝" class="btn btn--flat btn--input">
+          <a class="btn btn--fab dice d4 js-command" data-command="/d4">d4</a>
+          <a class="btn btn--fab dice d6 js-command" data-command="/d6">d6</a>
+          <a class="btn btn--fab dice d8 js-command" data-command="/d8">d8</a>
+          <a class="btn btn--fab dice d10 js-command" data-command="/d10">d10</a>
+          <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>
+          <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
         </form>
       </article>
       `

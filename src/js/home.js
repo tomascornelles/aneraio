@@ -26,7 +26,7 @@ export const home = () => {
   }
 
   const _submit = (campaign) => {
-    if (campaign.trim()) page(`/campaign/${campaign.trim()}`)
+    if (campaign.trim()) page(`/campaign/${campaign.trim().toLowerCase()}`)
   }
 
   _init()

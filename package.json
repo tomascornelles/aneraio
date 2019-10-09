@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "db.js": "^0.15.0",
-    "firebase": "^7.0.0",
+    "firebase": "^7.1.0",
     "hyperapp": "^2.0.1",
     "page": "^1.11.5"
   },
