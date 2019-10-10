@@ -1,21 +1,25 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { dbInit } from './db.js'
-import { pjTemplate, pjTemplateShort, pjMessages } from './templates/pj.js'
+import { pjTemplate } from './templates/pj.js'
+import { chat, command, pjList, swipe } from './utils.js'
 
 export const pj = (ctx) => {
   let pj = {}
   let campaign = ctx.params.campaign
+  let tab = 'chat'
 
   const _init = (campaign, character) => {
-    _layout()
+    document.querySelector('.js-main').innerHTML = `<div class="loading"><div class="spinner"></div></div>`
 
     dbInit()
     firebase.database().ref('/campaigns/' + campaign).off()
 
+    _layout()
     _pjSheet(campaign, character)
-    _pjList(campaign)
-    _pjChat(campaign, character)
+    pjList(campaign, character)
+
+    swipe(_pjSwipe)
 
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).once('value', function (snapshot) {
       _savePj('active', true)
@@ -32,20 +36,20 @@ export const pj = (ctx) => {
       </div>
       <div class="content content-fg1 tab--sheet js-pj"></div>
       <nav class="tabs row">
-        <button class="btn btn--flat content-fg1 js-tab" data-tab="list">Lista</button>
-        <button class="btn btn--flat content-fg1 js-tab button--active" data-tab="chat">Chat</button>
-        <button class="btn btn--flat content-fg1 js-tab" data-tab="sheet">Ficha</button>
+        <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>
+        <button class="btn btn--flat content-fg1 js-tab js-tab-chat button--active" data-tab="chat">Chat</button>
+        <button class="btn btn--flat content-fg1 js-tab js-tab-sheet" data-tab="sheet">Ficha</button>
       </nav>
     `
-    const tab = document.querySelectorAll('.js-tab')
+    const tabs = document.querySelectorAll('.js-tab')
 
-    for (let i = 0; i < tab.length; i++) {
-      tab[i].addEventListener('click', function () {
-        console.log('>>>')
+    for (let i = 0; i < tabs.length; i++) {
+      tabs[i].addEventListener('click', function () {
         document.querySelector('.tab--active').classList.remove('tab--active')
         document.querySelector('.tab--' + this.dataset.tab).classList.add('tab--active')
         document.querySelector('.button--active').classList.remove('button--active')
-        document.querySelector(this).classList.add('button--active')
+        this.classList.add('button--active')
+        tab = this.dataset.tab
       })
     }
   }
@@ -66,73 +70,15 @@ export const pj = (ctx) => {
       }
       document.querySelector('.js-title').innerHTML = pj.name.toUpperCase()
       document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a> / <a href="/campaign/${campaign}">${campaign.toUpperCase()}</a>`
-    })
-  }
 
-  const _pjList = (campaign) => {
-    firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
-      let pjs = snapshot.val()
-      let list = ''
-      for (let a = 0; a < pjs.length; a++) {
-        if (pjs[a] && a!= pj.id) list += pjTemplateShort(pjs[a], false)
+      chat(campaign, pj)
+
+      let btnCommand = document.querySelectorAll('.js-command')
+      for (let i = 0; i < btnCommand.length; i++) {
+        btnCommand[i].addEventListener('click', function () {
+          command(this.dataset.command, campaign, pj)
+        })
       }
-      document.querySelector('.js-list').innerHTML = list
-    })
-  }
-
-  const _pjChat = (campaign) => {
-    let input = `
-      <article>
-        <form>
-          <input type="text" class="input input--wide js-chat-message" autofocus placeholder="Escribe aquí (/3d6+1 p.e. para lanzar dados)">
-          <input type="submit" value="✉︝" class="btn btn--flat btn--input">
-          <a class="btn btn--fab dice d4 js-command" data-command="/d4">d4</a>
-          <a class="btn btn--fab dice d6 js-command" data-command="/d6">d6</a>
-          <a class="btn btn--fab dice d8 js-command" data-command="/d8">d8</a>
-          <a class="btn btn--fab dice d10 js-command" data-command="/d10">d10</a>
-          <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>
-          <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
-        </form>
-      </article>
-      `
-
-    firebase.database().ref('/campaigns/' + campaign + '/chat').on('value', function (snapshot) {
-      let messages = snapshot.val()
-      let wall = ''
-      for (const prop in messages) {
-        if (messages.hasOwnProperty(prop)) {
-          const message = messages[prop]
-          if (message) {
-            let msg = (message.dm)
-              ? pjMessages.dm(message.message)
-              : (message.name === pj.name)
-                ? pjMessages.pj(message.message, message.name)
-                : pjMessages.general(message.message, message.name)
-            wall = msg + wall
-          }
-        }
-      }
-      document.querySelector('.js-main').innerHTML = wall
-    })
-    document.querySelector('.js-chat-input').innerHTML = input
-
-    let btnCommand = document.querySelectorAll('.js-command')
-    
-    for (let i = 0; i < btnCommand.length; i++) {
-      btnCommand[i].addEventListener('click', function () {
-        _command(this.dataset.command)
-      })
-    }
-
-    document.querySelector('.js-chat-input form').addEventListener('submit', function (e) {
-      e.preventDefault()
-      let message = document.querySelector('.js-chat-message').value.trim()
-
-      if (message !== '') {
-        if (message.search('/') === 0) _command(message)
-        else _saveChat(pj.name, message)
-      }
-      document.querySelector('.js-chat-message').value = ''
     })
   }
 
@@ -141,57 +87,31 @@ export const pj = (ctx) => {
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + pj.id).update(pj)
   }
 
-  const _saveChat = (name, message) => {
-    let time = Date.now()
-    firebase.database().ref('/campaigns/' + campaign + '/chat/' + time).set({
-      message: message,
-      dm: false,
-      name: name
-    })
-  }
-
-  const _command = (message) => {
-    message = message.replace(/[ ]/g, '')
-    if (message.search(/^[/]\d*[d]\d+([+-]?\d)?/gmi) >= 0) {
-      let str1 = message.split('/')[1]
-      let str2 = str1.split('d')
-
-      let diceNumber = (str2[0] === '') ? 1 : str2[0]
-      let diceSides = ''
-      let diceModifier = ''
-      let diceBonus = ''
-
-      if (str2[1].search(/[+]+/gmi) >= 0) {
-        diceSides = str2[1].split('+')[0]
-        diceBonus = str2[1].split('+')[1]
-        diceModifier = '+'
-      } else if (str2[1].search(/[-]+/gmi) >= 0) {
-        diceSides = str2[1].split('-')[0]
-        diceBonus = str2[1].split('-')[1]
-        diceModifier = '-'
-      } else {
-        diceSides = str2[1]
+  const _pjSwipe = (start, end) => {
+    console.log(tab, end > start)
+    if (end - start > 50) {
+      if (tab === 'list') {
+        document.querySelector('.js-tab-list').click()
+        tab = 'list'
+      } else if (tab === 'chat') {
+        document.querySelector('.js-tab-list').click()
+        tab = 'list'
+      } else if (tab === 'sheet') {
+        document.querySelector('.js-tab-chat').click()
+        tab = 'chat'
       }
-
-      let results = []
-      let totalResult = 0
-      for (let d = 0; d < diceNumber; d++) {
-        let rnd = Math.ceil(Math.random() * parseInt(diceSides))
-        results.push(rnd)
-        // results += (d === 0) ? rnd : `, ${rnd}`
+    }
+    if (end - start < -50) {
+      if (tab === 'list') {
+        document.querySelector('.js-tab-chat').click()
+        tab = 'chat'
+      } else if (tab === 'chat') {
+        document.querySelector('.js-tab-sheet').click()
+        tab = 'sheet'
+      } else if (tab === 'sheet') {
+        document.querySelector('.js-tab-sheet').click()
+        tab = 'sheet'
       }
-      message = `He tirado ${str1}<br>`
-      for (const result of results) {
-        totalResult += parseInt(result)
-        message += `<span class="dice d${diceSides}">${result}</span>`
-      }
-      totalResult += (diceModifier === '+')
-        ? parseInt(diceBonus)
-        : (diceModifier === '-')
-          ? -parseInt(diceBonus)
-          : 0
-      message += `<br>Total: <strong>${totalResult}</strong>`
-      _saveChat(pj.name, message)
     }
   }
 

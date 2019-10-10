@@ -24,7 +24,7 @@ $headerImg: 'https://learn.zoner.com/wp-content/uploads/2018/08/landscape-photog
 header {
   background: #fff url($headerImg) no-repeat center top;
   background-size: 100%;
-  min-height: 20%;
+  height: 14%;
   flex-grow: 1;
   position: relative;
 
@@ -115,6 +115,9 @@ header {
   h2 {
     margin-bottom: 0;
   }
+  h3 {
+    margin-top: 0;
+  }
 }
 .js-pj {
   position: fixed;
@@ -153,7 +156,10 @@ header {
     }
     .chat {
       max-width: 100%;
-      padding-bottom: 10rem;
+      padding-bottom: 14rem;
+    }
+    .js-pj .pj-sheet, .pj-sheet:last-child {
+      margin-bottom: 14rem;
     }
   }
   .btn.btn--fab {
@@ -172,6 +178,7 @@ header {
 
     .button--active {
       background: #fff;
+      outline: none;
     }
   }
 }

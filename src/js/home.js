@@ -2,8 +2,10 @@ import page from 'page'
 
 export const home = () => {
   const _init = () => {
+    document.querySelector('.js-main').innerHTML = `<div class="loading"><div class="spinner"></div></div>`
     document.querySelector('.js-main').innerHTML = _template()
     document.querySelector('.js-title').innerHTML = 'Aneraio'
+    document.querySelector('.home-form-campaign').focus()
     document.querySelector('#app .content-fg2').classList.add('tab--active')
     document.querySelector('.home-form').addEventListener('submit', function (e) {
       e.preventDefault()

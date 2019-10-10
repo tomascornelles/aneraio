@@ -26,6 +26,12 @@
     }
   }
 
+  &--wide {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   &--flat {
     border-color: transparent;
     background: Transparent;
@@ -72,32 +78,32 @@
       transition: all .3s ease;
 
       &.d4 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d4_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d4_hires.png);
         right: 21em;
       }
 
       &.d6 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d6_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d6_hires.png);
         right: 17em;
       }
 
       &.d8 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d8_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d8_hires.png);
         right: 13em;
       }
 
       &.d10 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d10_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d10_hires.png);
         right: 9em;
       }
 
       &.d12 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d12_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d12_hires.png);
         right: 5em;
       }
 
       &.d20 {
-        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d20_blank.png);
+        background-image: url(https://www.google.com/logos/fnbx/polyhedral_dice/d20_hires.png);
       }
 
       &:hover {
@@ -113,7 +119,10 @@
   .btn {
     &--fab {
       &.dice {
-      font-size: 90%;
+        display: none;
+        &.d20 {
+          display: block;
+        }
       }
     }
   }
