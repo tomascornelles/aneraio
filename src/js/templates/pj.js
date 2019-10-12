@@ -59,7 +59,7 @@ export const pjTemplateShort = (pj, editable) => {
 }
 
 export const pjMessages = {
-  general: (message, name) => `<p class="card card--message"><strong>${name}</strong>: ${message}</p>`,
-  pj: (message, name) => `<p class="card card--message_pj"><strong>${name}</strong>: ${message}</p>`,
-  dm: (message) => `<p class="card card--message_dm">${message}</p>`
+  general: (message, name) => `<div class="card card--message"><strong>${name}</strong>: ${message}</div>`,
+  pj: (message, name) => `<div class="card card--message_pj"><strong>${name}</strong>: ${message}</div>`,
+  dm: (message) => `<div class="card card--message_dm">${message}</div>`
 }

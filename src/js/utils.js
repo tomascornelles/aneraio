@@ -39,8 +39,7 @@ export function chat (campaign, pj) {
 
     document.onkeypress = function (e) {
       e = e || window.event
-      console.log(e.keyCode)
-      if (e.keyCode === 0) document.querySelector('.js-chat-message').focus()
+      if (e.keyCode === 160) document.querySelector('.js-chat-message').focus()
     }
   })
   document.querySelector('.js-chat-input').innerHTML = input
@@ -59,6 +58,19 @@ export function chat (campaign, pj) {
 
 export function saveChat (message, campaign, pj) {
   let time = Date.now()
+  if (message.search(/^(http)+.+\.(gif|jpg|jpeg|tiff|png)$/i) === 0) {
+  message = `<a href="${message}" target="_blank"><img src="${message}" /></a>`
+  } else if (message.search(/^(https:\/\/www.youtube.com|https:\/\/youtube.com|https:\/\/youtu.be)/i) === 0) {
+    let url = message.split('/')
+    url = url[url.length -1]
+    if (url.search(/^(watch\?v=)/i) >= 0) {
+      url = url.split('watch?v=')
+      url = url[1]
+    }
+    message = `<div class="video"><iframe width="100%" height="0" src="https://www.youtube.com/embed/${url}" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+  } else if (message.search(/^(https:\/\/|http:\/\/)/i) === 0) {
+    message = `<a href="${message}" target="_blank">${message}</a>`
+  }
   firebase.database().ref('/campaigns/' + campaign + '/chat/' + time).set({
     message: message,
     dm: false,
