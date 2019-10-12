@@ -1,11 +1,11 @@
 export const pjTemplate = (pj, editable) => {
-  let contenteditable = (editable)
-    ? 'contenteditable'
+  let disabled = (!editable)
+    ? 'disabled'
     : ''
   return `
     <div class="pj-sheet card">
-      <h2 class="pj-input" ${contenteditable}>${pj.name}</h2>
-      <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
+      <input type="text" class="pj-input input input--wide title" data-attribute="name" value="${pj.name}" ${disabled}/>
+      <h3>${pj.class} ${pj.race} nivel <input type="number" class="pj-input input input--mini" data-attribute="level" value="${pj.level}" ${disabled}/></h3>
       <table>
         <tr>
           <th>Cuerpo</th>
@@ -14,19 +14,19 @@ export const pjTemplate = (pj, editable) => {
           <th>Estrés</th>
         <tr>
         <tr>
-          <td><span class="pj-input" data-attribute="body" ${contenteditable}>${pj.body}</span</td>
-          <td><span class="pj-input" data-attribute="mind" ${contenteditable}>${pj.mind}</span></td>
-          <td><span class="pj-input" data-attribute="soul" ${contenteditable}>${pj.soul}</span></td>
-          <td><span class="pj-input" data-attribute="stress" ${contenteditable}>${pj.stress}</span></td>
+          <td><input type="number" class="pj-input input input--mini" data-attribute="body" value="${pj.body}" ${disabled}/></td>
+          <td><input type="number" class="pj-input input input--mini" data-attribute="mind" value="${pj.mind}" ${disabled}/></td>
+          <td><input type="number" class="pj-input input input--mini" data-attribute="soul" value="${pj.soul}" ${disabled}/></td>
+          <td><input type="number" class="pj-input input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
         <tr>
       </table>
       <div class="stress stress--${pj.stress}"></div>
       <p><strong>Equipo</strong></p>
-      <p class="pj-input" datta-attribute="equip" ${contenteditable}>${pj.equip}</p>
+      <textarea class="pj-input input input--wide" data-attribute="equip" ${disabled}>${pj.equip}</textarea>
       <p><strong>Habilidades</strong></p>
-      <p class="pj-input" datta-attribute="skills" ${contenteditable}>${pj.skills}</p>
+      <textarea class="pj-input input input--wide" data-attribute="skills" ${disabled}>${pj.skills}</textarea>
       <p><strong>Descripción</strong></p>
-      <p class="pj-input" data-attribute="description" ${contenteditable}>${pj.description}</p>
+      <textarea class="pj-input input input--wide" data-attribute="description" ${disabled}>${pj.description}</textarea>
     </div>
     `
 }

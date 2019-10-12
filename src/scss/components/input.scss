@@ -2,11 +2,14 @@
   background: $colorBg;
   border: 1px solid #eee;
   font-size: 1.6rem;
-  padding: .5em 1em;
+  padding: .5em;
   margin: 0;
   border-radius: .2em;
   transition: all .2s ease;
   box-sizing: border-box;
+  outline: 0;
+  font-family: $fontBase;
+  box-shadow: 0 .1em .2em rgba(0,0,0,.2);
 
   &:focus {
     border-color: #999;
@@ -14,6 +17,16 @@
 
   &--wide {
     width: 100%;
+  }
+  &--mini {
+    width: 3em;
+    font-size: 1.3em;
+    padding: 0.5em;
+    text-align: center;
+  }
+  &.title {
+    font-size: 2.4rem;
+    font-family: $fontHeadline;
   }
   &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: rgba(0,0,0,.3);
@@ -31,4 +44,8 @@
 }
 .pj-input {
   min-height: 1.5em;
+}
+
+textarea{  
+  overflow:hidden;
 }
