@@ -2,31 +2,36 @@ export const pjTemplate = (pj, editable) => {
   let disabled = (!editable)
     ? 'disabled'
     : ''
+  let contenteditable = (editable)
+    ? 'contenteditable'
+    : ''
   return `
     <div class="pj-sheet card">
-      <input type="text" class="pj-input input input--wide title" data-attribute="name" value="${pj.name}" ${disabled}/>
-      <h3>${pj.class} ${pj.race} nivel <input type="number" class="pj-input input input--mini" data-attribute="level" value="${pj.level}" ${disabled}/></h3>
+      <h2>${pj.name}</h2>
+      <h3>${pj.class} ${pj.race} nivel ${pj.level}</h3>
       <table>
         <tr>
           <th>Cuerpo</th>
           <th>Mente</th>
           <th>Espíritu</th>
-          <th>Estrés</th>
         <tr>
         <tr>
-          <td><input type="number" class="pj-input input input--mini" data-attribute="body" value="${pj.body}" ${disabled}/></td>
-          <td><input type="number" class="pj-input input input--mini" data-attribute="mind" value="${pj.mind}" ${disabled}/></td>
-          <td><input type="number" class="pj-input input input--mini" data-attribute="soul" value="${pj.soul}" ${disabled}/></td>
-          <td><input type="number" class="pj-input input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <td><span class="stat">${pj.body}</span></td>
+          <td><span class="stat">${pj.mind}</span></td>
+          <td><span class="stat">${pj.soul}</span></td>
+        <tr>
+        <tr>
+          <th style="text-align: left" colspan="2">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
+          <td style="text-align: right"><input type="number" class="pj-input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
         <tr>
       </table>
-      <div class="stress stress--${pj.stress}"></div>
+      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
       <p><strong>Equipo</strong></p>
-      <textarea class="pj-input input input--wide" data-attribute="equip" ${disabled}>${pj.equip}</textarea>
+      <div ${contenteditable} data-attribute="equip" class="pj-input-ce">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
-      <textarea class="pj-input input input--wide" data-attribute="skills" ${disabled}>${pj.skills}</textarea>
+      <div ${contenteditable} data-attribute="skills" class="pj-input-ce">${pj.skills}</div>
       <p><strong>Descripción</strong></p>
-      <textarea class="pj-input input input--wide" data-attribute="description" ${disabled}>${pj.description}</textarea>
+      <div ${contenteditable} data-attribute="description" class="pj-input-ce">${pj.description}</div>
     </div>
     `
 }
@@ -53,7 +58,7 @@ export const pjTemplateShort = (pj, editable) => {
           <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span></td>
         <tr>
       </table>
-      <div class="stress stress--${pj.stress}"></div>
+      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
     </div>
     `
 }

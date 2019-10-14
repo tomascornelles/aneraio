@@ -59,10 +59,10 @@ export function chat (campaign, pj) {
 export function saveChat (message, campaign, pj) {
   let time = Date.now()
   if (message.search(/^(http)+.+\.(gif|jpg|jpeg|tiff|png)$/i) === 0) {
-  message = `<a href="${message}" target="_blank"><img src="${message}" /></a>`
+    message = `<a href="${message}" target="_blank"><img src="${message}" /></a>`
   } else if (message.search(/^(https:\/\/www.youtube.com|https:\/\/youtube.com|https:\/\/youtu.be)/i) === 0) {
     let url = message.split('/')
-    url = url[url.length -1]
+    url = url[url.length - 1]
     if (url.search(/^(watch\?v=)/i) >= 0) {
       url = url.split('watch?v=')
       url = url[1]
@@ -84,7 +84,7 @@ export function pjList (campaign, pj) {
     let pjs = snapshot.val()
     let list = ''
     for (let a = 0; a < pjs.length; a++) {
-      if (pjs[a] && parseInt(a) !== parseInt(pj)) list += pjTemplateShort(pjs[a], false)
+      if (pjs[a] && parseInt(a) !== parseInt(pj) && pjs[a].active) list += pjTemplateShort(pjs[a], false)
     }
     document.querySelector('.js-list').innerHTML = list
   })

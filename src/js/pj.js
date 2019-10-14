@@ -62,28 +62,22 @@ export const pj = (ctx) => {
       document.querySelector('.js-pj').innerHTML = pjTemplate(pj, true)
 
       const input = document.querySelectorAll('.pj-input')
-
       for (let i = 0; i < input.length; i++) {
         input[i].addEventListener('blur', function () {
           _savePj(this.dataset.attribute, this.value)
         })
       }
-      const textarea = document.querySelectorAll('textarea');
-      for (let i = 0; i < textarea.length; i++) {
-        textarea[i].addEventListener('keydown', autosize);
-        autosize(textarea[i])
+
+      const inputce = document.querySelectorAll('.pj-input-ce')
+      for (let i = 0; i < inputce.length; i++) {
+        inputce[i].addEventListener('blur', function () {
+          _savePj(this.dataset.attribute, this.innerHTML)
+        })
       }
-      function autosize(item){
-        var el = (typeof item !== 'undefined') ? item : this;
-        setTimeout(function(){
-          el.style.cssText = 'height:auto; padding:0';
-          // for box-sizing other than "content-box" use:
-          // el.style.cssText = '-moz-box-sizing:content-box';
-          el.style.cssText = 'height:' + el.scrollHeight + 'px';
-        },0);
-      }
+
       document.querySelector('.js-title').innerHTML = pj.name.toUpperCase()
       document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a> / <a href="/campaign/${campaign}">${campaign.toUpperCase()}</a>`
+      document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
 
       chat(campaign, pj)
 

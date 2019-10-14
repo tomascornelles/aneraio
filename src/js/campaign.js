@@ -21,6 +21,7 @@ export const campaign = (ctx) => {
       window.sessionStorage.removeItem('pj')
     }
     document.querySelector('.js-breadcrum').innerHTML = '<a href="/">Inicio</a>'
+    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
   }
 
   const _template = () => {
@@ -37,7 +38,7 @@ export const campaign = (ctx) => {
           </div>
           <div class="campaign card">
             <h2>Crea un nuevo personaje para "${campaign.name}"</h2>
-            <p class="text-center"><a href="/campaign/${campaign.id}/new" class="btn">Nuevo personaje</a></p>
+            <p class="text-center"><a href="/campaign/${campaign.id}/new" class="btn btn--principal">Nuevo personaje</a></p>
           </div>
         </article>
       </div>
@@ -51,7 +52,7 @@ export const campaign = (ctx) => {
       let character = campaign.characters[a]
       list += (character)
         ? (!character.active)
-          ? `<p><a href="/campaign/${campaign.id}/${a}" class="btn btn--wide"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
+          ? `<p><a href="/campaign/${campaign.id}/${a}" class="btn btn--wide btn--principal"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
           : `<p><a class="btn btn--wide btn--disabled"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
         : ''
     }

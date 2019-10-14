@@ -1,8 +1,9 @@
 .card {
-  background: $colorBg;
+  background: darken($colorBg, 10%);
   padding: 1rem;
   box-shadow: .2rem .2rem .4rem rgba($colorFg,.2);
   border-radius: .3rem;
+  border-top: 1px solid rgba($colorBg,.8);
 
   & + & {
     margin-top: 1em;
