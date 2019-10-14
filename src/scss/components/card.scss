@@ -1,5 +1,6 @@
 .card {
   background: darken($colorBg, 10%);
+  background: linear-gradient(0deg, rgba(238,238,238,1) 0%, rgba(230,230,230,1) 100%);
   padding: 1rem;
   box-shadow: .2rem .2rem .4rem rgba($colorFg,.2);
   border-radius: .3rem;
