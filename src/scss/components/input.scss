@@ -12,7 +12,8 @@
   box-shadow: 0 .1em .2em rgba(0,0,0,.2);
 
   &:focus {
-    border-color: #999;
+    border: 1px solid rgba(0,0,0,.3);
+    border-top: 1px solid rgba(0,0,0,.7);
   }
 
   &--wide {
@@ -52,4 +53,17 @@
 
 textarea{  
   overflow:hidden;
+}
+*[contenteditable] {
+  background: #fff;
+  padding: 0.3rem;
+  border-top: 1px solid rgba(0,0,0,.2);
+  min-height: 2em;
+  border-radius: .2rem;
+  outline: 0;
+
+  &:focus {
+    border: 1px solid rgba(0,0,0,.3);
+    border-top: 1px solid rgba(0,0,0,.7);
+  }
 }
