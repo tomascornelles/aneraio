@@ -25,6 +25,10 @@ export const home = () => {
         </form>
       </p>
     </div>
+    <div class="card text-center">
+      <h2>Crea una campaña nueva</h2>
+      <p class="text-center"><a href="/campaign/new" class="btn btn--principal">Nueva campaña</a></p>
+    </div>
     `
   }
 

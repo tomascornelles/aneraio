@@ -26,12 +26,12 @@ export const pjTemplate = (pj, editable) => {
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
-      <p><strong>Equipo</strong></p>
-      <div ${contenteditable} data-attribute="equip" class="pj-input-ce">${pj.equip}</div>
+      <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
+      <div ${contenteditable} data-attribute="equip" class="pj-input">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
-      <div ${contenteditable} data-attribute="skills" class="pj-input-ce">${pj.skills}</div>
+      <div ${contenteditable} data-attribute="skills" class="pj-input">${pj.skills}</div>
       <p><strong>Descripción</strong></p>
-      <div ${contenteditable} data-attribute="description" class="pj-input-ce">${pj.description}</div>
+      <div ${contenteditable} data-attribute="description" class="pj-input">${pj.description}</div>
     </div>
     `
 }

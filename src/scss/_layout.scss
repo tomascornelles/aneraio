@@ -14,16 +14,17 @@
 
 section {
   flex-grow: 10;
-  background: darken($colorBg,25%);
+  background: rgba(238,238,238,1);
+  // background-image: url(https://www.toptal.com/designers/subtlepatterns/patterns/mooning.png);
 
   max-height: 85%;
   overflow: auto;
 }
 
-$headerImg: 'https://slyflourish.com/images/zalto.jpg';
+$headerImg: '';
 
 header {
-  background: #fff url($headerImg) no-repeat center top;
+  background: #ccc url($headerImg) no-repeat center top;
   background-size: 100%;
   height: 14%;
   max-height: 14%;
@@ -45,7 +46,7 @@ header {
     height: 5.3rem;
     overflow: hidden;
     border-top: 1px solid transparent;
-    background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.2);
 
     .bg-image {
       background: transparent url($headerImg) no-repeat center -100px;

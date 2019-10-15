@@ -55,6 +55,16 @@ export const pj = (ctx) => {
   }
 
   const _pjSheet = (campaign, character) => {
+    firebase.database().ref('/headers').once('value', function (snapshot) {
+      let headers = snapshot.val()
+      console.log(headers)
+      firebase.database().ref('/campaigns/' + campaign + '/header').on('value', function (snapshot) {
+        let header = snapshot.val()
+        console.log(header)
+        document.querySelector('header').style.backgroundImage = `url(${headers[header]})`
+        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[header]})`
+      })
+    })
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).on('value', function (snapshot) {
       pj = snapshot.val()
       pj.id = character
@@ -64,14 +74,8 @@ export const pj = (ctx) => {
       const input = document.querySelectorAll('.pj-input')
       for (let i = 0; i < input.length; i++) {
         input[i].addEventListener('blur', function () {
-          _savePj(this.dataset.attribute, this.value)
-        })
-      }
-
-      const inputce = document.querySelectorAll('.pj-input-ce')
-      for (let i = 0; i < inputce.length; i++) {
-        inputce[i].addEventListener('blur', function () {
-          _savePj(this.dataset.attribute, this.innerHTML)
+          let val = (typeof this.value !== 'undefined') ? this.value : this.innerHTML
+          _savePj(this.dataset.attribute, val)
         })
       }
 
