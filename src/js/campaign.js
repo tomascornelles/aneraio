@@ -26,8 +26,24 @@ export const campaign = (ctx) => {
       firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
       window.sessionStorage.removeItem('pj')
     }
-    document.querySelector('.js-breadcrum').innerHTML = '<a href="/">Inicio</a>'
-    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
+
+    document.querySelector('.js-menu').innerHTML = ''
+    let menu = document.createElement('option')
+    menu.value = ''
+    menu.innerHTML = 'MENÚ'
+    document.querySelector('.js-menu').append(menu)
+    let inicio = document.createElement('option')
+    inicio.value = '/'
+    inicio.innerHTML = 'Inicio'
+    document.querySelector('.js-menu').append(inicio)
+    let manual = document.createElement('option')
+    manual.value = 'https://tomascornelles.com/aneraio'
+    manual.innerHTML = 'Manual del jugador'
+    document.querySelector('.js-menu').append(manual)
+
+    document.querySelector('.js-menu').addEventListener('change', function () {
+      if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
+    })
   }
 
   const _template = () => {
