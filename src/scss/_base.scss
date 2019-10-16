@@ -28,3 +28,21 @@ table {
   width: 100%;
   text-align: center;
 }
+
+
+.error {
+  display: block;
+  color: #c00;
+  text-align: center;
+  background: rgba(255,0,0,.1);
+  padding: 0.5rem;
+  border-radius: .3rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.m--r {
+  margin-right: 1em;
+}

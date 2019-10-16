@@ -12,3 +12,11 @@ h3 {
 .stat {
   font-size: 2em;
 }
+.content-hidden {
+  display: none;
+}
+.pj-sheet:hover {
+  .content-hidden {
+    display: block;
+  }
+}

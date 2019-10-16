@@ -10,7 +10,7 @@ export const campaign = (ctx) => {
     dbInit()
     firebase.database().ref('/campaigns/' + id).on('value', function (snapshot) {
       campaign = snapshot.val()
-      if (!campaign) return page('/error')
+      if (!campaign) return page('/error/campaign')
       campaign.id = id
       document.querySelector('#app').innerHTML = _template()
       document.querySelector('#app .content-fg2').classList.add('tab--active')
@@ -59,13 +59,15 @@ export const campaign = (ctx) => {
   const _pjList = () => {
     let list = ''
     if (typeof campaign.characters !== 'undefined') {
-      for (var a = 0; a < campaign.characters.length; a++) {
-        let character = campaign.characters[a]
-        list += (character)
-          ? (!character.active)
-            ? `<p><a href="/campaign/${campaign.id}/${a}" class="btn btn--wide btn--principal"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
-            : `<p><a class="btn btn--wide btn--disabled"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
-          : ''
+      for (const key in campaign.characters) {
+        if (campaign.characters.hasOwnProperty(key)) {
+          const character = campaign.characters[key]
+          list += (character)
+            ? (!character.active)
+              ? `<p><a href="/campaign/${campaign.id}/${key}" class="btn btn--wide btn--principal"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
+              : `<p><a class="btn btn--wide btn--disabled"><strong>${character.name}</strong> (<em>${character.class} ${character.race} nivel ${character.level}</em>)</a></p>`
+            : ''
+        }
       }
     }
 
@@ -77,12 +79,13 @@ export const campaign = (ctx) => {
 
 export const newCampaign = () => {
   const _init = () => {
+    document.querySelector('.js-title').innerHTML = 'Crear una nueva campaña'
     dbInit()
     document.querySelector('#app').innerHTML = _template()
 
     document.querySelector('.campaign-form').addEventListener('submit', function (e) {
       e.preventDefault()
-      _submit(document.querySelector('#name').value, document.querySelector('#description').value)
+      _submit(document.querySelector('#pass').value, document.querySelector('#pass2').value, document.querySelector('#name').value, document.querySelector('#description').value)
     })
   }
 
@@ -93,9 +96,12 @@ export const newCampaign = () => {
         <article class="js-main">
           <div class="campaign card">
             <p>
-              <form class="campaign-form container--flex">
-                <label for="name">Nombre</label>
-                <input type="text" id="name" class="input input--wide" autofocus>
+              <form class="campaign-form container--flex" autocomplete="off">
+                <label for="name">Contraseña para el narrador</label>
+                <input type="password" id="pass" class="input input--wide input--top" autofocus>
+                <input type="password" id="pass2" class="input input--wide input--bottom" placeholder="repite la contraseña">
+                <label for="name">Título de la campaña</label>
+                <input type="text" id="name" class="input input--wide">
                 <label for="name">Descripción</label>
                 <textarea id="description" class="input input--wide" ></textarea>
                 <input type="submit" value="Crear" class="btn btn--principal">
@@ -108,21 +114,51 @@ export const newCampaign = () => {
     `
   }
 
-  const _submit = (name, description) => {
+  const _submit = (pass, pass2, name, description) => {
     let id
-    if (name.trim()) {
+    name = name.trim()
+    let error = document.querySelectorAll('form .error')
+    for (let a = 0; a < error.length; a++) {
+      error[a].remove()
+    }
+    if (pass.trim() !== pass2.trim()) {
+      let p = document.createElement('p')
+      p.classList.add('error')
+      p.innerHTML = 'Las contraseñas no coinciden'
+      document.querySelector('form').append(p)
+    } else if (name === 'new') {
+      let p = document.createElement('p')
+      p.classList.add('error')
+      p.innerHTML = 'El título de campaña no es válido'
+      document.querySelector('form').append(p)
+    } else if (name) {
       id = name.toLowerCase().replace(/\s+/g, '-').replace(/(ç)/gi, 'c').replace(/(ñ)/gi, 'n').replace(/&/g, '-and-')
         .replace(/(á)/gi, 'a').replace(/(é)/gi, 'e').replace(/(í)/gi, 'i').replace(/(ó)/gi, 'o').replace(/(ú)/gi, 'u')
         .replace(/(à)/gi, 'a').replace(/(è)/gi, 'e').replace(/(ì)/gi, 'i').replace(/(ò)/gi, 'o').replace(/(ù)/gi, 'u')
         .replace(/(ä)/gi, 'a').replace(/(ë)/gi, 'e').replace(/(ï)/gi, 'i').replace(/(ö)/gi, 'o').replace(/(ü)/gi, 'u')
         .replace(/[^a-z0-9\-]/g, '').replace(/-+/g, '-').replace(/^-*/, '').replace(/-*$/, '')
+
+      firebase.database().ref('/campaigns/' + id).once('value', function (snapshot) {
+        if (!snapshot.val()) {
+          firebase.database().ref('/campaigns/' + id).set({
+            description: description,
+            name: name,
+            header: 'day'
+          })
+          page('/campaign/' + id)
+        } else {
+          let p = document.createElement('p')
+          p.classList.add('error')
+          p.innerHTML = 'El nombre de campaña ya existe'
+          document.querySelector('form').append(p)
+        }
+      })
+    } else {
+      var p = document.createElement('p')
+      p.classList.add('error')
+      p.innerHTML = 'Hay que rellenar todos los campos'
+      document.querySelector('form').append(p)
     }
-    firebase.database().ref('/campaigns/' + id).set({
-      description: description,
-      name: name,
-      header: 'day'
-    })
-    page('/campaign/' + id)
   }
 
   _init()

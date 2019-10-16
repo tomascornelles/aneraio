@@ -1,9 +1,15 @@
 import page from 'page'
 
-export const home = () => {
-  const _init = () => {
+export const home = (ctx) => {
+  const _init = (error) => {
     document.querySelector('.js-main').innerHTML = `<div class="loading"><div class="spinner"></div></div>`
     document.querySelector('.js-main').innerHTML = _template()
+    if (document.querySelector('.js-list')) document.querySelector('.js-list').innerHTML = ''
+    if (document.querySelector('.js-pj')) document.querySelector('.js-pj').innerHTML = ''
+    if (typeof error !== 'undefined' && error === 'campaign') {
+      document.querySelector('.error').innerHTML = `<h2 class="">La campaña no existe</h2>`
+      document.querySelector('.error').classList.remove('hidden')
+    }
     document.querySelector('.js-title').innerHTML = 'Aneraio'
     document.querySelector('.home-form-campaign').focus()
     document.querySelector('#app .content-fg2').classList.add('tab--active')
@@ -16,6 +22,7 @@ export const home = () => {
 
   const _template = () => {
     return `
+    <div class="error card text-center hidden"></div>
     <div class="home-app card text-center">
       <h2>Entra en una campaña</h2>
       <p>
@@ -36,5 +43,5 @@ export const home = () => {
     if (campaign.trim()) page(`/campaign/${campaign.trim().toLowerCase()}`)
   }
 
-  _init()
+  _init(ctx.params.error)
 }
