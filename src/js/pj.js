@@ -210,7 +210,7 @@ export const newPj = (ctx) => {
         .replace(/(á)/gi, 'a').replace(/(é)/gi, 'e').replace(/(í)/gi, 'i').replace(/(ó)/gi, 'o').replace(/(ú)/gi, 'u')
         .replace(/(à)/gi, 'a').replace(/(è)/gi, 'e').replace(/(ì)/gi, 'i').replace(/(ò)/gi, 'o').replace(/(ù)/gi, 'u')
         .replace(/(ä)/gi, 'a').replace(/(ë)/gi, 'e').replace(/(ï)/gi, 'i').replace(/(ö)/gi, 'o').replace(/(ü)/gi, 'u')
-        .replace(/[^a-z0-9\-]/g, '').replace(/-+/g, '-').replace(/^-*/, '').replace(/-*$/, '')
+        .replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-*/, '').replace(/-*$/, '')
 
       firebase.database().ref('/campaigns/' + _campaign + '/characters/' + id).once('value', function (snapshot) {
         if (!snapshot.val()) {
