@@ -25,7 +25,8 @@ export const pj = (ctx) => {
 
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).once('value', function (snapshot) {
       _savePj('active', true)
-      window.sessionStorage.setItem('pj', pj.id)
+      window.sessionStorage.setItem('pj', character)
+      window.sessionStorage.setItem('campaign', campaign)
     })
     window.addEventListener('beforeunload', function () { _savePj('active', false) })
   }

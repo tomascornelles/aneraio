@@ -23,8 +23,9 @@ export const campaign = (ctx) => {
       })
     })
     if (window.sessionStorage.getItem('pj') !== null) {
-      firebase.database().ref('/campaigns/' + id + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
+      firebase.database().ref('/campaigns/' + window.sessionStorage.getItem('campaign') + '/characters/' + window.sessionStorage.getItem('pj')).update({active: false})
       window.sessionStorage.removeItem('pj')
+      window.sessionStorage.removeItem('campaign')
     }
 
     document.querySelector('.js-menu').innerHTML = ''
