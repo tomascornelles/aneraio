@@ -27,6 +27,8 @@ export const campaign = (ctx) => {
       window.sessionStorage.removeItem('pj')
       window.sessionStorage.removeItem('campaign')
     }
+    document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a></a>`
+    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
 
     document.querySelector('.js-menu').innerHTML = ''
     let menu = document.createElement('option')
