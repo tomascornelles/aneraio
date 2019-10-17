@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { pjTemplateShort, pjMessages } from './templates/pj.js'
+import undefined from 'firebase/database'
 
 export function chat (campaign, pj) {
   let input = `
@@ -30,7 +31,9 @@ export function chat (campaign, pj) {
             ? pjMessages.dm(message.message)
             : (message.id === pj.id)
               ? pjMessages.pj(message.message, message.name)
-              : pjMessages.general(message.message, message.name)
+              : (message.id === 'log')
+                ? pjMessages.log(message.message, message.name)
+                : pjMessages.general(message.message, message.name)
           wall = msg + wall
         }
       }
@@ -78,16 +81,27 @@ export function saveChat (message, campaign, pj) {
   })
 }
 
-export function pjList (campaign, pj) {
+export function saveLog (prop, value, campaign, pj) {
+  let time = Date.now()
+  let message = `${pj.name}: ha cambiado ${prop} por ${value}`
+  firebase.database().ref('/campaigns/' + campaign + '/chat/' + time).set({
+    message: message,
+    dm: false,
+    name: pj.name,
+    id: 'log'
+  })
+}
+
+export function pjList (campaign, pj, callback) {
   if (pj === 'master') {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
       let pjs = snapshot.val()
-      console.log('entra', campaign, pjs)
       let list = ''
       for (const key in pjs) {
         if (pjs[key]) list += pjTemplateShort(pjs[key], key, true)
       }
       document.querySelector('.js-list').innerHTML = list
+      if (typeof callback !== 'undefined') callback()
     })
   } else {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
@@ -97,6 +111,7 @@ export function pjList (campaign, pj) {
         if (pjs[key] && key !== pj && pjs[key].active) list += pjTemplateShort(pjs[key], key, false)
       }
       document.querySelector('.js-list').innerHTML = list
+      if (typeof callback !== 'undefined') callback()
     })
   }
 }
@@ -144,7 +159,7 @@ export function command (message, campaign, pj) {
     message += `<br>Total: <strong>${totalResult}</strong>`
     saveChat(message, campaign, pj)
   } else if (pj === 'master') {
-    if (message.search(/^[\/][a-z0-9-]+[ ][a-z]+[ ][a-z0-9 ]+/) === 0) {
+    if (message.search(/^[/][a-z0-9-]+[ ][a-z]+[ ][a-z0-9 ]+/) === 0) {
       let msg = message.split('/')[1]
       let com = msg.split(' ')
       console.log(com)

@@ -3,7 +3,7 @@ import 'firebase/database'
 import page from 'page'
 import { dbInit } from './db.js'
 import { pjTemplate, pjTemplateNew } from './templates/pj.js'
-import { chat, command, pjList, swipe } from './utils.js'
+import { chat, command, pjList, swipe, saveLog } from './utils.js'
 import { pjGenerator } from './generator.js'
 
 export const pj = (ctx) => {
@@ -121,6 +121,7 @@ export const pj = (ctx) => {
 
   const _savePj = (prop, value) => {
     pj[prop] = value
+    saveLog(prop, value, campaign, pj)
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + pj.id).update(pj)
   }
 

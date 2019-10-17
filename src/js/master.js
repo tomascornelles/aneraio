@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { dbInit } from './db.js'
-import { chat, command, pjList, swipe } from './utils.js'
+import { chat, command, pjList, swipe, saveLog } from './utils.js'
 
 export const master = (ctx) => {
   let campaign = ctx.params.campaign
@@ -18,7 +18,7 @@ export const master = (ctx) => {
     firebase.database().ref('/campaigns/' + campaign).off()
 
     _layout()
-    pjList(campaign, 'master')
+    pjList(campaign, 'master', master._inputListener)
 
     chat(campaign, 'master')
     let btnCommand = document.querySelectorAll('.js-command')
@@ -93,6 +93,22 @@ export const master = (ctx) => {
         tab = this.dataset.tab
       })
     }
+  }
+
+  const _inputListener = () => {
+    const input = document.querySelectorAll('.pj-input')
+    for (let i = 0; i < input.length; i++) {
+      input[i].addEventListener('blur', function () {
+        let val = (typeof this.value !== 'undefined') ? this.value : this.innerHTML
+        _savePj(this.dataset.attribute, val, this.dataset.pj)
+      })
+    }
+  }
+
+  const _savePj = (prop, value, pj) => {
+    pj[prop] = value
+    saveLog(prop, value, campaign, pj)
+    firebase.database().ref('/campaigns/' + campaign + '/characters/' + pj.id).update(pj)
   }
 
   const _pjSwipe = (start, end) => {

@@ -44,8 +44,8 @@ export const pjTemplateShort = (pj, id, editable) => {
   console.log(pj)
   return `
     <div class="pj-sheet card">
-      <h2 class="pj-input" data-attribute="name" ${contenteditable}>${pj.name} ${pjId}</h2>
-      <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
+      <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} ${pjId}</h2>
+      <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
       <table>
         <tr>
           <th>Cuerpo</th>
@@ -54,20 +54,20 @@ export const pjTemplateShort = (pj, id, editable) => {
           <th>Estrés</th>
         <tr>
         <tr>
-          <td><span data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
-          <td><span data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
-          <td><span data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
-          <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + parseInt(pj.body) + parseInt(pj.level)}</td>
+          <td><span data-pj="${pj.id}" data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
+          <td><span data-pj="${pj.id}" data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
+          <td><span data-pj="${pj.id}" data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
+          <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + parseInt(pj.body) + parseInt(pj.level)}</td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
       <div class="content-hidden">
         <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
-        <div ${contenteditable} data-attribute="equip" class="pj-input">${pj.equip}</div>
+        <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
         <p><strong>Habilidades</strong></p>
-        <div ${contenteditable} data-attribute="skills" class="pj-input">${pj.skills}</div>
+        <div ${contenteditable} data-pj="${pj.id}" data-attribute="skills" class="pj-input">${pj.skills}</div>
         <p><strong>Descripción</strong></p>
-        <div ${contenteditable} data-attribute="description" class="pj-input">${pj.description}</div>
+        <div ${contenteditable} data-pj="${pj.id}" data-attribute="description" class="pj-input">${pj.description}</div>
       </div>
     </div>
     `
@@ -150,5 +150,6 @@ export const pjTemplateNew = (pj, editable) => {
 export const pjMessages = {
   general: (message, name) => `<div class="card card--message"><strong>${name}</strong>: ${message}</div>`,
   pj: (message, name) => `<div class="card card--message_pj"><strong>${name}</strong>: ${message}</div>`,
+  log: (message, name) => `<div class="log"><strong>${name}</strong>: ${message}</div>`,
   dm: (message) => `<div class="card card--message_dm">${message}</div>`
 }
