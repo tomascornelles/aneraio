@@ -74,9 +74,6 @@ export const pjTemplateShort = (pj, id, editable) => {
 }
 
 export const pjTemplateNew = (pj, editable) => {
-  let disabled = (!editable)
-    ? 'disabled'
-    : ''
   let contenteditable = (editable)
     ? 'contenteditable'
     : ''
