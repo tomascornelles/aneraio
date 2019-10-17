@@ -21,7 +21,7 @@ export const home = (ctx) => {
     document.querySelector('.js-menu').innerHTML = ''
     let menu = document.createElement('option')
     menu.value = ''
-    menu.innerHTML = 'MENÚ'
+    menu.innerHTML = '☰'
     document.querySelector('.js-menu').append(menu)
     let manual = document.createElement('option')
     manual.value = 'https://tomascornelles.com/aneraio'

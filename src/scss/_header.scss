@@ -1,6 +1,9 @@
-header select {
+header select.input {
   float: right;
-  width: 6em;
+  width: 3.5em;
+  background: rgba(0,0,0,.5);
+  color: #fff;
+  border-color: transparent;
 }
 @media (min-width: 1023px) {
   .mobile {

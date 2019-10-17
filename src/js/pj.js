@@ -89,7 +89,7 @@ export const pj = (ctx) => {
       document.querySelector('.js-menu').innerHTML = ''
       let menu = document.createElement('option')
       menu.value = ''
-      menu.innerHTML = 'MENÚ'
+      menu.innerHTML = '☰'
       document.querySelector('.js-menu').append(menu)
       let inicio = document.createElement('option')
       inicio.value = '/'
@@ -200,7 +200,7 @@ export const newPj = (ctx) => {
     for (let a = 0; a < error.length; a++) {
       error[a].remove()
     }
-    if (name === 'new' || name === 'dm') {
+    if (name === 'new' || name === 'master') {
       let p = document.createElement('p')
       p.classList.add('error')
       p.innerHTML = 'El nombre no es válido'

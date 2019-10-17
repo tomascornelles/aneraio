@@ -26,7 +26,7 @@ export function chat (campaign, pj) {
       if (messages.hasOwnProperty(prop)) {
         const message = messages[prop]
         if (message) {
-          let msg = (message.dm)
+          let msg = (message.id === 'master')
             ? pjMessages.dm(message.message)
             : (message.id === pj.id)
               ? pjMessages.pj(message.message, message.name)
@@ -47,7 +47,6 @@ export function chat (campaign, pj) {
   document.querySelector('.js-chat-input form').addEventListener('submit', function (e) {
     e.preventDefault()
     let message = document.querySelector('.js-chat-message').value.trim()
-
     if (message !== '') {
       if (message.search('/') === 0) command(message, campaign, pj)
       else saveChat(message, campaign, pj)
@@ -74,25 +73,37 @@ export function saveChat (message, campaign, pj) {
   firebase.database().ref('/campaigns/' + campaign + '/chat/' + time).set({
     message: message,
     dm: false,
-    name: pj.name,
-    id: pj.id
+    name: (pj === 'master') ? 'master' : pj.name,
+    id: (pj === 'master') ? 'master' : pj.id
   })
 }
 
 export function pjList (campaign, pj) {
-  firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
-    let pjs = snapshot.val()
-    let list = ''
-    for (let a = 0; a < pjs.length; a++) {
-      if (pjs[a] && parseInt(a) !== parseInt(pj) && pjs[a].active) list += pjTemplateShort(pjs[a], false)
-    }
-    document.querySelector('.js-list').innerHTML = list
-  })
+  if (pj === 'master') {
+    firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
+      let pjs = snapshot.val()
+      console.log('entra', campaign, pjs)
+      let list = ''
+      for (const key in pjs) {
+        if (pjs[key]) list += pjTemplateShort(pjs[key], key, true)
+      }
+      document.querySelector('.js-list').innerHTML = list
+    })
+  } else {
+    firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
+      let pjs = snapshot.val()
+      let list = ''
+      for (const key in pjs) {
+        if (pjs[key] && key !== pj && pjs[key].active) list += pjTemplateShort(pjs[key], key, false)
+      }
+      document.querySelector('.js-list').innerHTML = list
+    })
+  }
 }
 
 export function command (message, campaign, pj) {
-  message = message.replace(/[ ]/g, '')
-  if (message.search(/^[/]\d*[d]\d+([+-]?\d)?/gmi) >= 0) {
+  if (message.search(/^[/]\d*[d]\d+([+-]?\d)?/gmi) === 0) {
+    message = message.replace(/[ ]/g, '')
     let str1 = message.split('/')[1]
     let str2 = str1.split('d')
 
@@ -132,6 +143,15 @@ export function command (message, campaign, pj) {
         : 0
     message += `<br>Total: <strong>${totalResult}</strong>`
     saveChat(message, campaign, pj)
+  } else if (pj === 'master') {
+    if (message.search(/^[\/][a-z0-9-]+[ ][a-z]+[ ][a-z0-9 ]+/) === 0) {
+      let msg = message.split('/')[1]
+      let com = msg.split(' ')
+      console.log(com)
+      let updates = {}
+      updates[com[1]] = com[2]
+      firebase.database().ref('/campaigns/' + campaign + '/characters/' + com[0]).update(updates)
+    }
   }
 }
 

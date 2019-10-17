@@ -66,15 +66,20 @@ textarea{
   overflow:hidden;
 }
 *[contenteditable] {
-  background: #fff;
-  padding: 0.3rem;
-  border-top: 1px solid rgba(0,0,0,.2);
-  min-height: 2em;
-  border-radius: .2rem;
+  background: $colorBg;
+  border: 1px solid #eee;
+  font-size: 1.6rem;
+  padding: 0 .5em;
+  margin: 0;
+  border-radius: .2em;
+  transition: all .2s ease;
+  box-sizing: border-box;
   outline: 0;
+  font-family: $fontBase;
+  box-shadow: 0 .1em .2em rgba(0,0,0,.2);
 
   &:focus {
     border: 1px solid rgba(0,0,0,.3);
-    border-top: 1px solid rgba(0,0,0,.7);
+    border-top: 1px solid rgba(0,0,0,.4);
   }
 }

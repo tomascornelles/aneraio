@@ -22,7 +22,7 @@ export const pjTemplate = (pj, editable) => {
         <tr>
         <tr>
           <th style="text-align: left" colspan="2">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
-          <td style="text-align: right"><input type="number" class="pj-input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <td style="text-align: right"><input type="number" class="pj-input input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
@@ -36,13 +36,15 @@ export const pjTemplate = (pj, editable) => {
     `
 }
 
-export const pjTemplateShort = (pj, editable) => {
+export const pjTemplateShort = (pj, id, editable) => {
   let contenteditable = (editable)
     ? 'contenteditable'
     : ''
+  let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
+  console.log(pj)
   return `
     <div class="pj-sheet card">
-      <h2 class="pj-input" data-attribute="name" ${contenteditable}>${pj.name}</h2>
+      <h2 class="pj-input" data-attribute="name" ${contenteditable}>${pj.name} ${pjId}</h2>
       <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
       <table>
         <tr>
@@ -55,7 +57,7 @@ export const pjTemplateShort = (pj, editable) => {
           <td><span data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
           <td><span data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
           <td><span data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
-          <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span></td>
+          <td><span data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + parseInt(pj.body) + parseInt(pj.level)}</td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>

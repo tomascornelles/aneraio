@@ -15,7 +15,10 @@ export const campaign = (ctx) => {
       document.querySelector('#app').innerHTML = _template()
       document.querySelector('#app .content-fg2').classList.add('tab--active')
       document.querySelector('.js-title').innerHTML = campaign.name
-
+      document.querySelector('.master-form').addEventListener('submit', function (e) {
+        e.preventDefault()
+        _login(campaign.id, document.querySelector('.master-form-pass').value)
+      })
       firebase.database().ref('/headers').once('value', function (snapshot) {
         let headers = snapshot.val()
         document.querySelector('header').style.backgroundImage = `url(${headers[campaign.header]})`
@@ -33,7 +36,7 @@ export const campaign = (ctx) => {
     document.querySelector('.js-menu').innerHTML = ''
     let menu = document.createElement('option')
     menu.value = ''
-    menu.innerHTML = 'MENÚ'
+    menu.innerHTML = '☰'
     document.querySelector('.js-menu').append(menu)
     let inicio = document.createElement('option')
     inicio.value = '/'
@@ -69,10 +72,28 @@ export const campaign = (ctx) => {
             <h2>Crea un nuevo personaje para "${campaign.name}"</h2>
             <p class="text-center"><a href="/campaign/${campaign.id}/new" class="btn btn--principal">Nuevo personaje</a></p>
           </div>
+          <div class="campaign card">
+            <h2>Entra como "Master"</h2>
+            <form class="master-form container--flex">
+              <input type="password" class="input master-form-pass" autofocus>
+              <input type="submit" value="Entrar" class="btn btn--flat">
+            </form>
+          </div>
+          
         </article>
       </div>
     <div class="content content-fg1"></div>
     `
+  }
+
+  const _login = (campaign, pass) => {
+    firebase.database().ref('/campaigns/' + campaign).once('value', function (snapshot) {
+      if (pass === snapshot.val().pass) {
+        window.sessionStorage.setItem('master', true)
+        window.sessionStorage.setItem('campaign', campaign)
+        window.open('/campaign/' + campaign + '/master', '_self')
+      }
+    })
   }
 
   const _pjList = () => {
@@ -162,6 +183,7 @@ export const newCampaign = () => {
           firebase.database().ref('/campaigns/' + id).set({
             description: description,
             name: name,
+            pass: pass.trim(),
             header: 'day'
           })
           page('/campaign/' + id)
