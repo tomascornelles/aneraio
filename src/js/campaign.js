@@ -127,6 +127,26 @@ export const newCampaign = () => {
       e.preventDefault()
       _submit(document.querySelector('#pass').value, document.querySelector('#pass2').value, document.querySelector('#name').value, document.querySelector('#description').value)
     })
+    document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a></a>`
+    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
+
+    document.querySelector('.js-menu').innerHTML = ''
+    let menu = document.createElement('option')
+    menu.value = ''
+    menu.innerHTML = '☰'
+    document.querySelector('.js-menu').append(menu)
+    let inicio = document.createElement('option')
+    inicio.value = '/'
+    inicio.innerHTML = 'Inicio'
+    document.querySelector('.js-menu').append(inicio)
+    let manual = document.createElement('option')
+    manual.value = 'https://tomascornelles.com/aneraio'
+    manual.innerHTML = 'Manual del jugador'
+    document.querySelector('.js-menu').append(manual)
+
+    document.querySelector('.js-menu').addEventListener('change', function () {
+      if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
+    })
   }
 
   const _template = () => {

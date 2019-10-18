@@ -22,16 +22,16 @@ export const pjTemplate = (pj, editable) => {
         <tr>
         <tr>
           <th style="text-align: left" colspan="2">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
-          <td style="text-align: right"><input type="number" class="pj-input input input--mini" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <td style="text-align: right"><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
       <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
-      <div ${contenteditable} data-attribute="equip" class="pj-input">${pj.equip}</div>
+      <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
-      <div ${contenteditable} data-attribute="skills" class="pj-input">${pj.skills}</div>
+      <div ${contenteditable} data-pj="${pj.id}" data-attribute="skills" class="pj-input">${pj.skills}</div>
       <p><strong>Descripción</strong></p>
-      <div ${contenteditable} data-attribute="description" class="pj-input">${pj.description}</div>
+      <div ${contenteditable} data-pj="${pj.id}" data-attribute="description" class="pj-input">${pj.description}</div>
     </div>
     `
 }
@@ -41,10 +41,9 @@ export const pjTemplateShort = (pj, id, editable) => {
     ? 'contenteditable'
     : ''
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
-  console.log(pj)
   return `
     <div class="pj-sheet card">
-      <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} ${pjId}</h2>
+      ${pjId}<h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
       <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
       <table>
         <tr>
@@ -142,14 +141,30 @@ export const pjTemplateNew = (pj, editable) => {
     </div>
     <div class="card row">
       <div class="content-fg1 m--r"><a class="btn btn--flat btn--wide js-generate-pj">Generar otro personaje</a></div>
-      <div class="content-fg1"><a class="btn btn--principal btn--wide js-save-pj">Crear a ${pj.name}</a></div>
+      <div class="content-fg1"><a class="btn btn--principal btn--wide js-save-pj">Jugar con ${pj.name}</a></div>
     </div>
     `
 }
 
 export const pjMessages = {
-  general: (message, name) => `<div class="card card--message"><strong>${name}</strong>: ${message}</div>`,
-  pj: (message, name) => `<div class="card card--message_pj"><strong>${name}</strong>: ${message}</div>`,
-  log: (message, name) => `<div class="log"><strong>${name}</strong>: ${message}</div>`,
-  dm: (message) => `<div class="card card--message_dm">${message}</div>`
+  general: (message, name, master, id) => {
+  return (master)
+    ? `<div class="card card--message"><span class="close btn js-delete" data-id="${id}">✖</span><strong>${name}</strong>: ${message}</div>`
+    : `<div class="card card--message"><strong>${name}</strong>: ${message}</div>`
+  },
+  pj: (message, name, master, id) => {
+  return (master)
+    ? `<div class="card card--message_pj"><span class="close btn js-delete" data-id="${id}">✖</span><strong>${name}</strong>: ${message}</div>`
+    : `<div class="card card--message_pj"><strong>${name}</strong>: ${message}</div>`
+  },
+  log: (message, name, master, id) => {
+  return (master)
+    ? `<div class="log"><span class="close btn js-delete" data-id="${id}">✖</span><strong>${name}</strong>: ${message}</div>`
+    : `<div class="log"><strong>${name}</strong>: ${message}</div>`
+  },
+  dm: (message, master, id) => {
+  return (master)
+    ? `<div class="card card--message_dm"><span class="close btn js-delete" data-id="${id}">✖</span>${message}</div>`
+    : `<div class="card card--message_dm">${message}</div>`
+  }
 }

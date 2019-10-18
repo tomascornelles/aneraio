@@ -1,7 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { pjTemplateShort, pjMessages } from './templates/pj.js'
-import undefined from 'firebase/database'
 
 export function chat (campaign, pj) {
   let input = `
@@ -9,12 +8,6 @@ export function chat (campaign, pj) {
         <form>
           <input type="text" class="input input--wide js-chat-message" autofocus placeholder="Escribe aquí (/3d6+1 p.e. para lanzar dados)">
           <input type="submit" value="📧" class="btn btn--flat btn--input">
-
-          <!--<a class="btn btn--fab dice d4 js-command" data-command="/d4">d4</a>
-          <a class="btn btn--fab dice d6 js-command" data-command="/d6">d6</a>
-          <a class="btn btn--fab dice d8 js-command" data-command="/d8">d8</a>
-          <a class="btn btn--fab dice d10 js-command" data-command="/d10">d10</a>
-          <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>-->
           <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
         </form>
       </article>
@@ -28,17 +21,27 @@ export function chat (campaign, pj) {
         const message = messages[prop]
         if (message) {
           let msg = (message.id === 'master')
-            ? pjMessages.dm(message.message)
+            ? pjMessages.dm(message.message, (pj === 'master'), prop)
             : (message.id === pj.id)
-              ? pjMessages.pj(message.message, message.name)
+              ? pjMessages.pj(message.message, message.name, (pj === 'master'), prop)
               : (message.id === 'log')
-                ? pjMessages.log(message.message, message.name)
-                : pjMessages.general(message.message, message.name)
+                ? (pj === 'master')
+                  ? pjMessages.log(message.message, message.name, (pj === 'master'), prop)
+                  : ''
+                : pjMessages.general(message.message, message.name, (pj === 'master'), prop)
           wall = msg + wall
         }
       }
     }
     document.querySelector('.js-main').innerHTML = wall
+
+    const deleteBtn = document.querySelectorAll('.js-delete')
+    for (let i = 0; i < deleteBtn.length; i++) {
+      deleteBtn[i].addEventListener('click', function () {
+        let campaign = window.sessionStorage.getItem('campaign')
+        firebase.database().ref('/campaigns/' + campaign + '/chat/' + this.dataset.id).remove()
+      })
+    }
 
     document.onkeypress = function (e) {
       e = e || window.event
@@ -82,17 +85,29 @@ export function saveChat (message, campaign, pj) {
 }
 
 export function saveLog (prop, value, campaign, pj) {
-  let time = Date.now()
-  let message = `${pj.name}: ha cambiado ${prop} por ${value}`
-  firebase.database().ref('/campaigns/' + campaign + '/chat/' + time).set({
-    message: message,
-    dm: false,
-    name: pj.name,
-    id: 'log'
-  })
+  if (prop !== 'active') {
+    let timestamp = Date.now()
+    let time = new Date()
+    let date = {
+      day: time.getDay(),
+      month: time.getMonth(),
+      year: time.getYear(),
+      hour: time.getHours(),
+      minute: time.getMinutes(),
+    }
+    if (date.minute.length === 1) date.minute = '0' + date.minute
+    if (date.minute.length === 2) date.minute = '00'
+    let message = `[${date.hour}:${date.minute}] ha cambiado ${prop} por ${value}`
+    firebase.database().ref('/campaigns/' + campaign + '/chat/' + timestamp).set({
+      message: message,
+      dm: false,
+      name: pj.name,
+      id: 'log'
+    })
+  }
 }
 
-export function pjList (campaign, pj, callback) {
+export function pjList (campaign, pj) {
   if (pj === 'master') {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
       let pjs = snapshot.val()
@@ -101,7 +116,7 @@ export function pjList (campaign, pj, callback) {
         if (pjs[key]) list += pjTemplateShort(pjs[key], key, true)
       }
       document.querySelector('.js-list').innerHTML = list
-      if (typeof callback !== 'undefined') callback()
+      inputListener()
     })
   } else {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
@@ -111,7 +126,20 @@ export function pjList (campaign, pj, callback) {
         if (pjs[key] && key !== pj && pjs[key].active) list += pjTemplateShort(pjs[key], key, false)
       }
       document.querySelector('.js-list').innerHTML = list
-      if (typeof callback !== 'undefined') callback()
+      inputListener()
+    })
+  }
+}
+
+const inputListener = () => {
+  const input = document.querySelectorAll('.js-list .pj-input')
+  for (let i = 0; i < input.length; i++) {
+    input[i].addEventListener('blur', function () {
+      let val = (typeof this.value !== 'undefined') ? this.value : this.innerHTML
+      let updates = {}
+      let campaign = window.sessionStorage.getItem('campaign')
+      updates[this.dataset.attribute] = val
+      firebase.database().ref('/campaigns/' + campaign + '/characters/' + this.dataset.pj).update(updates)
     })
   }
 }
@@ -162,7 +190,6 @@ export function command (message, campaign, pj) {
     if (message.search(/^[/][a-z0-9-]+[ ][a-z]+[ ][a-z0-9 ]+/) === 0) {
       let msg = message.split('/')[1]
       let com = msg.split(' ')
-      console.log(com)
       let updates = {}
       updates[com[1]] = com[2]
       firebase.database().ref('/campaigns/' + campaign + '/characters/' + com[0]).update(updates)
@@ -177,10 +204,6 @@ export function swipe (callback) {
 
   // Find the element if needed
   let zoneTouched = document.querySelectorAll('body')
-
-  // CAUTION HERE
-  // CAUTION HERE READ MORE
-  // CAUTION HERE
 
   // Add the event
   zoneTouched[0].addEventListener('touchstart', function (event) {

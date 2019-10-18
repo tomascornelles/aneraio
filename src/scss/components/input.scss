@@ -9,11 +9,11 @@
   box-sizing: border-box;
   outline: 0;
   font-family: $fontBase;
-  box-shadow: 0 .1em .2em rgba(0,0,0,.2);
+  box-shadow: 0 .1em .2em rgba(0,0,0,.05);
 
   &:focus {
     border: 1px solid rgba(0,0,0,.3);
-    border-top: 1px solid rgba(0,0,0,.4);
+    border-top: 1px solid rgba(0,0,0,.2);
   }
 
   &--wide {
@@ -67,7 +67,7 @@ textarea{
 }
 *[contenteditable] {
   background: $colorBg;
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   font-size: 1.6rem;
   padding: 0 .5em;
   margin: 0;
@@ -76,10 +76,11 @@ textarea{
   box-sizing: border-box;
   outline: 0;
   font-family: $fontBase;
-  box-shadow: 0 .1em .2em rgba(0,0,0,.2);
+  box-shadow: inset 0 .1em .2em rgba(0,0,0,.05);
+  min-height: 2.4em;
 
   &:focus {
     border: 1px solid rgba(0,0,0,.3);
-    border-top: 1px solid rgba(0,0,0,.4);
+    border-top: 1px solid rgba(0,0,0,.2);
   }
 }

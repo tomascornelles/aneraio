@@ -1,6 +1,8 @@
 .btn {
   background: rgba(0,0,0,.1);
   border: 1px solid  transparent;
+  border-top-color: rgba(255,255,255,.4);
+  border-bottom-color: rgba(0,0,0,.1);
   font-size: 1.6rem;
   padding: .5em 1em;
   margin: 0;
@@ -13,6 +15,11 @@
 
   &::-moz-focus-inner {
     border: 0;
+  }
+
+  &:hover {
+    background: rgba(0,0,0,.05);
+    box-shadow: 0 .1rem .4rem rgba(0,0,0,.2)
   }
 
   &--principal {

@@ -60,10 +60,8 @@ export const pj = (ctx) => {
   const _pjSheet = (campaign, character) => {
     firebase.database().ref('/headers').once('value', function (snapshot) {
       let headers = snapshot.val()
-      console.log(headers)
       firebase.database().ref('/campaigns/' + campaign + '/header').on('value', function (snapshot) {
         let header = snapshot.val()
-        console.log(header)
         document.querySelector('header').style.backgroundImage = `url(${headers[header]})`
         document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[header]})`
       })
@@ -126,7 +124,6 @@ export const pj = (ctx) => {
   }
 
   const _pjSwipe = (start, end) => {
-    console.log(tab, end > start)
     if (end - start > 50) {
       if (tab === 'list') {
         document.querySelector('.js-tab-list').click()
@@ -158,19 +155,39 @@ export const pj = (ctx) => {
 
 export const newPj = (ctx) => {
   const _init = (_campaign) => {
-    console.log(_campaign)
     document.querySelector('.js-title').innerHTML = 'Crear un personaje'
     dbInit()
 
     let pj = pjGenerator()
 
-    console.log(_campaign)
     _redraw(pj, _campaign)
+    console.log(document.querySelector('.content-fg2'))
+    document.querySelector('#app .content-fg2').style.display = 'block'
 
-    // document.querySelector('.campaign-form').addEventListener('submit', function (e) {
-    //   e.preventDefault()
-    //   _submit(document.querySelector('#pass').value, document.querySelector('#pass2').value, document.querySelector('#name').value, document.querySelector('#description').value)
-    // })
+    document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a> / <a href="/campaign/${_campaign}">${_campaign.toUpperCase()}</a>`
+    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
+
+    document.querySelector('.js-menu').innerHTML = ''
+    let menu = document.createElement('option')
+    menu.value = ''
+    menu.innerHTML = '☰'
+    document.querySelector('.js-menu').append(menu)
+    let inicio = document.createElement('option')
+    inicio.value = '/'
+    inicio.innerHTML = 'Inicio'
+    document.querySelector('.js-menu').append(inicio)
+    let campLink = document.createElement('option')
+    campLink.value = `/campaign/${_campaign}`
+    campLink.innerHTML = 'Campaña'
+    document.querySelector('.js-menu').append(campLink)
+    let manual = document.createElement('option')
+    manual.value = 'https://tomascornelles.com/aneraio'
+    manual.innerHTML = 'Manual del jugador'
+    document.querySelector('.js-menu').append(manual)
+
+    document.querySelector('.js-menu').addEventListener('change', function () {
+      if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
+    })
   }
 
   const _redraw = (pj, _campaign) => {
@@ -188,7 +205,6 @@ export const newPj = (ctx) => {
       _init(_campaign)
     })
     document.querySelector('.js-save-pj').addEventListener('click', function (e) {
-      console.log(pj, _campaign)
       e.preventDefault()
       _submit(pj, _campaign)
     })

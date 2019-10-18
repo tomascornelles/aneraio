@@ -18,6 +18,7 @@ export const home = (ctx) => {
       _submit(document.querySelector('.home-form-campaign').value)
     })
 
+    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
     document.querySelector('.js-menu').innerHTML = ''
     let menu = document.createElement('option')
     menu.value = ''

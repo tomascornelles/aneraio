@@ -16,9 +16,8 @@ export const master = (ctx) => {
 
     dbInit()
     firebase.database().ref('/campaigns/' + campaign).off()
-
     _layout()
-    pjList(campaign, 'master', master._inputListener)
+    pjList(campaign, 'master')
 
     chat(campaign, 'master')
     let btnCommand = document.querySelectorAll('.js-command')
@@ -72,6 +71,9 @@ export const master = (ctx) => {
           <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>
           <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
         </p>
+        <p>
+          <select class="js-master-input input input--wide"> </select>
+        </p>
         <p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
         <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>
         <p> <a class="btn btn--wide js-command" data-command="/2d20">Ventaja</a> </p>
@@ -93,26 +95,39 @@ export const master = (ctx) => {
         tab = this.dataset.tab
       })
     }
-  }
 
-  const _inputListener = () => {
-    const input = document.querySelectorAll('.pj-input')
-    for (let i = 0; i < input.length; i++) {
-      input[i].addEventListener('blur', function () {
-        let val = (typeof this.value !== 'undefined') ? this.value : this.innerHTML
-        _savePj(this.dataset.attribute, val, this.dataset.pj)
+    let select = document.querySelector('.js-master-input')
+    firebase.database().ref('/headers').once('value', function (snapshot) {
+      let headers = snapshot.val()
+      let campaignData
+
+      firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
+        campaignData = snapshot.val()
+        document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
+        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
+        let child = select.lastElementChild;  
+        while (child) { 
+            select.removeChild(child); 
+            child = select.lastElementChild; 
+        } 
+        for (const key in headers) {
+          if (headers.hasOwnProperty(key)) {
+            const header = headers[key];
+            let option = document.createElement('option')
+            option.value = key
+            option.innerHTML = key
+            option.selected = (campaignData.header === key)
+            select.append(option)
+          }
+        }
       })
-    }
-  }
-
-  const _savePj = (prop, value, pj) => {
-    pj[prop] = value
-    saveLog(prop, value, campaign, pj)
-    firebase.database().ref('/campaigns/' + campaign + '/characters/' + pj.id).update(pj)
+    })
+    select.addEventListener('change', function () {
+      firebase.database().ref('/campaigns/' + campaign).update({header: this.value})
+    })
   }
 
   const _pjSwipe = (start, end) => {
-    console.log(tab, end > start)
     if (end - start > 50) {
       if (tab === 'list') {
         document.querySelector('.js-tab-list').click()
