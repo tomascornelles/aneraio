@@ -71,11 +71,9 @@ export const master = (ctx) => {
           <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>
           <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
         </p>
-        <p>
-          <select class="js-master-input input input--wide"> </select>
-        </p>
-        <p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
-        <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>
+        <p><select class="js-master-input input input--wide"> </select></p>
+        <!--<p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
+        <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>-->
         <p> <a class="btn btn--wide js-command" data-command="/2d20">Ventaja</a> </p>
       </div>
       <nav class="tabs row">
@@ -105,11 +103,6 @@ export const master = (ctx) => {
         campaignData = snapshot.val()
         document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
         document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
-        let child = select.lastElementChild;  
-        while (child) { 
-            select.removeChild(child); 
-            child = select.lastElementChild; 
-        } 
         for (const key in headers) {
           if (headers.hasOwnProperty(key)) {
             const header = headers[key];

@@ -21,7 +21,7 @@ section {
   overflow: auto;
 }
 
-$headerImg: 'https://www.toptal.com/designers/subtlepatterns/patterns/asfalt.png';
+$headerImg: 'http://images5.fanpop.com/image/photos/27100000/Fantasy-Dragon-dragons-27155051-2560-1600.jpg';
 
 header {
   background: #ccc url($headerImg) no-repeat center top;
@@ -132,6 +132,15 @@ header {
 
 .tabs {
   display: none;
+}
+
+.js-timetracker {
+  font-size: 3rem;
+  text-align: center;
+
+  &:after {
+    content: 'h'
+  }
 }
 
 @media (max-width: 1023px) {
