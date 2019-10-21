@@ -17,6 +17,7 @@ export const campaign = (ctx) => {
       document.querySelector('#app').innerHTML = campaignLayout(campaign)
       document.querySelector('.js-title').innerHTML = campaign.name
       document.querySelector('.master-form').addEventListener('submit', function (e) {
+        e.preventDefault()
         _login(campaign.id, document.querySelector('.master-form-pass').value)
       })
 
@@ -48,8 +49,7 @@ export const campaign = (ctx) => {
     }
   }
 
-  const _login = (campaign, pass, e) => {
-    e.preventDefault()
+  const _login = (campaign, pass) => {
     firebase.database().ref('/campaigns/' + campaign).once('value', function (snapshot) {
       if (pass === snapshot.val().pass) {
         window.sessionStorage.setItem('master', true)
