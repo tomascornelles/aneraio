@@ -54,7 +54,6 @@ export const master = (ctx) => {
         document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
         for (const key in headers) {
           if (headers.hasOwnProperty(key)) {
-            const header = headers[key]
             let option = document.createElement('option')
             option.value = key
             option.innerHTML = key
