@@ -117,6 +117,8 @@ header {
   position: fixed;
   left: 1em;
   top: 14%;
+  overflow-y: auto;
+  max-height: 82%;
   h2 {
     margin-bottom: .4em;
   }
