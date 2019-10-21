@@ -21,7 +21,7 @@ section {
   overflow: auto;
 }
 
-$headerImg: 'http://images5.fanpop.com/image/photos/27100000/Fantasy-Dragon-dragons-27155051-2560-1600.jpg';
+$headerImg: 'https://img.culturacolectiva.com/cdn-cgi/image/f=auto,w=1600,q=80,fit=contain/content_image/2019/2/15/1550276421966-de-donde-surge-el-mito-de-los-dragones.001.jpeg';
 
 header {
   background: #ccc url($headerImg) no-repeat center top;
@@ -157,7 +157,7 @@ header {
     }
   }
   #app {
-    & > .content {
+    section .content {
       position: relative;
       width: 100vw;
       display: none;

@@ -1,7 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/database'
 import { dbInit } from './db.js'
-import { chat, command, pjList, swipe, saveLog } from './utils.js'
+import { masterLayout } from './layouts/_master.js'
+import { chat, command, pjList, swipe, loadMenu } from './utils.js'
 
 export const master = (ctx) => {
   let campaign = ctx.params.campaign
@@ -12,87 +13,35 @@ export const master = (ctx) => {
       window.open('/campaign/' + campaign, '_self')
     }
 
-    document.querySelector('.js-main').innerHTML = `<div class="loading"><div class="spinner"></div></div>`
+    document.querySelector('#app').innerHTML = `<div class="loading"><div class="spinner"></div></div>`
 
     dbInit()
     firebase.database().ref('/campaigns/' + campaign).off()
-    _layout()
-    pjList(campaign, 'master')
 
-    chat(campaign, 'master')
-    let btnCommand = document.querySelectorAll('.js-command')
-    for (let i = 0; i < btnCommand.length; i++) {
-      btnCommand[i].addEventListener('click', function () {
-        command(this.dataset.command, campaign, 'master')
-      })
-    }
+    document.querySelector('#app').innerHTML = masterLayout()
 
     document.querySelector('.js-title').innerHTML = campaign + ' Master'
-    document.querySelector('.js-breadcrum').innerHTML = `<a href="/">Inicio</a> / <a href="/campaign/${campaign}">${campaign.toUpperCase()}</a>`
-    document.querySelector('.js-extra-links').innerHTML = `<a href="https://tomascornelles.com/aneraio" target="_blank">Manual del jugador</a>`
-
-    document.querySelector('.js-menu').innerHTML = ''
-    let menu = document.createElement('option')
-    menu.value = ''
-    menu.innerHTML = '☰'
-    document.querySelector('.js-menu').append(menu)
-    let inicio = document.createElement('option')
-    inicio.value = '/'
-    inicio.innerHTML = 'Inicio'
-    document.querySelector('.js-menu').append(inicio)
-    let campLink = document.createElement('option')
-    campLink.value = `/campaign/${campaign}`
-    campLink.innerHTML = 'Campaña'
-    document.querySelector('.js-menu').append(campLink)
-    let manual = document.createElement('option')
-    manual.value = 'https://tomascornelles.com/aneraio'
-    manual.innerHTML = 'Manual del jugador'
-    document.querySelector('.js-menu').append(manual)
-
-    document.querySelector('.js-menu').addEventListener('change', function () {
-      if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
+    let menu = []
+    menu.push({
+      name: 'Inicio',
+      url: '/',
+      position: '.js-breadcrum'
+    })
+    menu.push({
+      name: campaign.toUpperCase(),
+      url: `/campaign/${campaign}`,
+      position: '.js-breadcrum'
+    })
+    menu.push({
+      name: 'Manual del jugador',
+      url: 'https://tomascornelles.com/aneraio',
+      position: '.js-extra-links'
     })
 
-    swipe(_pjSwipe)
-  }
+    loadMenu(menu)
 
-  const _layout = () => {
-    document.querySelector('#app').innerHTML = `
-      <div class="content content-fg1 tab--list js-list"></div>
-      <div class="content content-fg2 tab--chat tab--active">
-        <article class="js-main chat"></article>
-      </div>
-      <div class="content content-fg1 tab--sheet js-pj">
-        <p>
-          <a class="btn btn--fab dice d4 js-command" data-command="/d4">d4</a>
-          <a class="btn btn--fab dice d6 js-command" data-command="/d6">d6</a>
-          <a class="btn btn--fab dice d8 js-command" data-command="/d8">d8</a>
-          <a class="btn btn--fab dice d10 js-command" data-command="/d10">d10</a>
-          <a class="btn btn--fab dice d12 js-command" data-command="/d12">d12</a>
-          <a class="btn btn--fab dice d20 js-command" data-command="/d20">d20</a>
-        </p>
-        <p><select class="js-master-input input input--wide"> </select></p>
-        <!--<p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
-        <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>-->
-        <p> <a class="btn btn--wide js-command" data-command="/2d20">Ventaja</a> </p>
-      </div>
-      <nav class="tabs row">
-        <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>
-        <button class="btn btn--flat content-fg1 js-tab js-tab-chat button--active" data-tab="chat">Chat</button>
-        <button class="btn btn--flat content-fg1 js-tab js-tab-sheet" data-tab="sheet">Tools</button>
-      </nav>
-    `
-    const tabs = document.querySelectorAll('.js-tab')
-
-    for (let i = 0; i < tabs.length; i++) {
-      tabs[i].addEventListener('click', function () {
-        document.querySelector('.tab--active').classList.remove('tab--active')
-        document.querySelector('.tab--' + this.dataset.tab).classList.add('tab--active')
-        document.querySelector('.button--active').classList.remove('button--active')
-        this.classList.add('button--active')
-        tab = this.dataset.tab
-      })
-    }
+    pjList(campaign, 'master')
+    chat(campaign, 'master')
 
     let select = document.querySelector('.js-master-input')
     firebase.database().ref('/headers').once('value', function (snapshot) {
@@ -105,7 +54,7 @@ export const master = (ctx) => {
         document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
         for (const key in headers) {
           if (headers.hasOwnProperty(key)) {
-            const header = headers[key];
+            const header = headers[key]
             let option = document.createElement('option')
             option.value = key
             option.innerHTML = key
@@ -118,6 +67,15 @@ export const master = (ctx) => {
     select.addEventListener('change', function () {
       firebase.database().ref('/campaigns/' + campaign).update({header: this.value})
     })
+
+    let btnCommand = document.querySelectorAll('.js-command')
+    for (let i = 0; i < btnCommand.length; i++) {
+      btnCommand[i].addEventListener('click', function () {
+        command(this.dataset.command, campaign, 'master')
+      })
+    }
+
+    swipe(_pjSwipe)
   }
 
   const _pjSwipe = (start, end) => {

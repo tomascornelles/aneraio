@@ -93,7 +93,7 @@ export function saveLog (prop, value, campaign, pj) {
       month: time.getMonth(),
       year: time.getYear(),
       hour: time.getHours(),
-      minute: time.getMinutes(),
+      minute: time.getMinutes()
     }
     if (date.minute.length === 1) date.minute = '0' + date.minute
     if (date.minute.length === 2) date.minute = '00'
@@ -216,5 +216,29 @@ export function swipe (callback) {
     touchEndX = event.changedTouches[0].screenX
     // Do the action
     callback(touchStartX, touchEndX)
+  })
+}
+
+export function loadMenu (menu) {
+  let link = document.createElement('option')
+  link.value = ''
+  link.innerHTML = '☰'
+  document.querySelector('.js-menu').append(link)
+
+  for (let a = 0; a < menu.length; a++) {
+    link = document.createElement('a')
+    link.href = menu[a].url
+    link.target = (menu[a].url.search(/^(http)/) === 0) ? '_blank' : '_self'
+    link.innerHTML = menu[a].name
+    document.querySelector(menu[a].position).append(link)
+
+    link = document.createElement('option')
+    link.value = menu[a].url
+    link.innerHTML = menu[a].name
+    document.querySelector('.js-menu').append(link)
+  }
+
+  document.querySelector('.js-menu').addEventListener('change', function () {
+    if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
   })
 }

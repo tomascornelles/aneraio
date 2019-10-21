@@ -5,6 +5,13 @@ header select.input {
   color: #fff;
   border-color: transparent;
 }
+.js-breadcrum {
+  a + a:before {
+    content: ' / ';
+    display: inline-block;
+    margin: 0 .5rem;
+  }
+}
 @media (min-width: 1023px) {
   .mobile {
     display: none;
