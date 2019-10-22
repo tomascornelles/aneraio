@@ -43,8 +43,8 @@ export const pjTemplateShort = (pj, id, editable) => {
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
   return `
     <div class="pj-sheet card">
-      ${pjId}<h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
-      <h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
+      <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
+      ${pjId}<h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
       <table>
         <tr>
           <th>Cuerpo</th>
