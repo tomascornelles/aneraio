@@ -5,14 +5,14 @@ import 'firebase/database'
 export function dbInit () {
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: 'AIzaSyAKGv95kC_QS4gSl8NgguRIv9ygwa17-AI',
-    authDomain: 'aneraio07.firebaseapp.com',
-    databaseURL: 'https://aneraio07.firebaseio.com',
-    projectId: 'aneraio07',
-    storageBucket: '',
-    messagingSenderId: '984485799576',
-    appId: '1:984485799576:web:c4c5eec855c96d1ff392ed',
-    measurementId: 'G-YZCF5K8R5R'
+    apiKey: 'AIzaSyDfxz7P8yVhB27YE8CNR8iQ-w0I_Hlyp2o',
+    authDomain: 'labyrinth-lord.firebaseapp.com',
+    databaseURL: 'https://labyrinth-lord.firebaseio.com',
+    projectId: 'labyrinth-lord',
+    storageBucket: 'labyrinth-lord.appspot.com',
+    messagingSenderId: '1095012192726',
+    appId: '1:1095012192726:web:5805c2e72b7913cc9fd477',
+    measurementId: 'G-1LRZQS44ZG'
   }
 
   if (!firebase.apps.length) {
