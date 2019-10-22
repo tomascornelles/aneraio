@@ -8,22 +8,40 @@ export const pjTemplate = (pj, editable) => {
   return `
     <div class="pj-sheet card">
       <h2>${pj.name}</h2>
-      <h3>${pj.class} ${pj.race} nivel ${pj.level}</h3>
+      <h3>${pj.class} nivel ${pj.level}</h3>
       <table>
         <tr>
-          <th>Cuerpo</th>
-          <th>Mente</th>
-          <th>Espíritu</th>
+          <th>FUE</th><td class="pj-input" data-attribute="abilities/str" ${contenteditable}>${pj.abilities.str}</td>
+          <th colspan="2"></th>
+        </tr>
         <tr>
+          <th>DES</th><td class="pj-input" data-attribute="abilities/dex" ${contenteditable}>${pj.abilities.dex}</td>
+          <th>Armas de aliento</th><td>${pj.saves.bre}</td>
+        </tr>
         <tr>
-          <td><span class="stat">${pj.body}</span></td>
-          <td><span class="stat">${pj.mind}</span></td>
-          <td><span class="stat">${pj.soul}</span></td>
+          <th>CON</th><td class="pj-input" data-attribute="abilities/con" ${contenteditable}>${pj.abilities.con}</td>
+          <th>Veneno o muerte</th><td>${pj.saves.ven}</td>
+        </tr>
         <tr>
+          <th>INT</th><td class="pj-input" data-attribute="abilities/int" ${contenteditable}>${pj.abilities.int}</td>
+          <th>Petrificación o parálisis</th><td>${pj.saves.par}</td>
+        </tr>
         <tr>
-          <th style="text-align: left" colspan="2">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
-          <td style="text-align: right"><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <th>SAB</th><td class="pj-input" data-attribute="abilities/wis" ${contenteditable}>${pj.abilities.wis}</td>
+          <th>Varita</th><td>${pj.saves.wan}</td>
+        </tr>
         <tr>
+          <th>CAR</th><td class="pj-input" data-attribute="abilities/cha" ${contenteditable}>${pj.abilities.cha}</td>
+          <th>Conjuro, bastón o cetro</th><td>${pj.saves.can}</td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th>CA</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+        </tr>
+        <tr>
+          <th>d20</th><td>${pj.hac0}</td><td>${pj.hac0 - 1}</td><td>${pj.hac0 - 2}</td><td>${pj.hac0 - 3}</td><td>${pj.hac0 - 4}</td><td>${pj.hac0 - 5}</td><td>${pj.hac0 - 6}</td><td>${pj.hac0 - 7}</td><td>${pj.hac0 - 8}</td><td>${pj.hac0 - 9}</td>
+        </tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
       <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
