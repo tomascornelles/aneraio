@@ -113,7 +113,10 @@ export function pjList (campaign, pj) {
       let pjs = snapshot.val()
       let list = ''
       for (const key in pjs) {
-        if (pjs[key]) list += pjTemplateShort(pjs[key], key, true)
+        if (pjs[key] && pjs[key].active) list += pjTemplateShort(pjs[key], key, true)
+      }
+      for (const key in pjs) {
+        if (pjs[key] && !pjs[key].active) list += pjTemplateShort(pjs[key], key, true)
       }
       document.querySelector('.js-list').innerHTML = list
       inputListener()

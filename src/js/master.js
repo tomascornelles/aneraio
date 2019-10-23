@@ -94,7 +94,7 @@ export const master = (ctx) => {
 
   const _copyPj = (e) => {
     e.preventDefault()
-    let input = document.querySelector('.master-copy-pj-input').value
+    let input = document.querySelector('.master-copy-pj-input').value.toLowerCase()
     let _campaign = input.split('/')[0]
     let _pj = input.split('/')[1]
     firebase.database().ref('/campaigns/' + _campaign + '/characters/' + _pj).once('value', function (snapshot) {

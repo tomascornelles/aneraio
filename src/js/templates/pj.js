@@ -23,17 +23,17 @@ export const pjTemplate = (pj, editable) => {
       </table>
       <table>
         <tr>
-          <th style="width: 33.333%">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
+          <th style="width: 33.333%">Estrés</th>
           <th style="width: 33.333%">CA</th>
           <th style="width: 33.333%">Defensa</th>
         <tr>
         <tr>
-          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/>/${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</td>
           <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="ac" value="${pj.ac}" ${disabled}/></td>
           <td><span class="stat">${parseInt(pj.level) + parseInt(pj.soul) + parseInt(pj.ac)}</span></td>
         <tr>
       </table>
-      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
+      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + (2 + parseInt(pj.body)) * parseInt(pj.level))) * 10)}"></div>
       <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
       <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
@@ -50,8 +50,9 @@ export const pjTemplateShort = (pj, id, editable) => {
     : ''
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
   let archive = (editable) ? `<span class="close btn master-archive-pj" data-pj="${id}">✖</span>` : ''
+  let active = (pj.active) ? 'active' : ''
   return `
-    <div class="pj-sheet card">
+    <div class="pj-sheet card ${active}">
       ${archive}
       <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
       ${pjId}<h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
@@ -66,10 +67,10 @@ export const pjTemplateShort = (pj, id, editable) => {
           <td><span data-pj="${pj.id}" data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
           <td><span data-pj="${pj.id}" data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
-          <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + parseInt(pj.body) + parseInt(pj.level)}</td>
+          <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</td>
         <tr>
       </table>
-      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
+      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + (2 + parseInt(pj.body)) * parseInt(pj.level))) * 10)}"></div>
       <div class="content-hidden">
         <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
         <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
@@ -138,8 +139,8 @@ export const pjTemplateNew = (pj, editable) => {
           </td>
         <tr>
         <tr>
-          <th style="text-align: left" colspan="2">Estrés máximo: ${10 + parseInt(pj.body) + parseInt(pj.level)}</th>
-          <input type="hidden" class="pj-input" data-attribute="stress" value="${10 + parseInt(pj.body) + parseInt(pj.level)}">
+          <th style="text-align: left" colspan="2">Estrés máximo: ${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</th>
+          <input type="hidden" class="pj-input" data-attribute="stress" value="${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}">
         <tr>
       </table>
       <p><strong>Descripción</strong></p>
