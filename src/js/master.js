@@ -21,6 +21,7 @@ export const master = (ctx) => {
     document.querySelector('#app').innerHTML = masterLayout()
 
     document.querySelector('.js-title').innerHTML = campaign + ' Master'
+
     let menu = []
     menu.push({
       name: 'Inicio',
@@ -74,7 +75,25 @@ export const master = (ctx) => {
       })
     }
 
+    document.querySelector('.master-copy-pj').addEventListener('submit', _copyPj)
+
     swipe(_pjSwipe)
+  }
+
+  const _copyPj = (e) => {
+    e.preventDefault()
+    let input = document.querySelector('.master-copy-pj-input').value
+    let _campaign = input.split('/')[0]
+    let _pj = input.split('/')[1]
+    firebase.database().ref('/campaigns/' + _campaign + '/characters/' + _pj).once('value', function (snapshot) {
+      let pj = snapshot.val()
+      if (pj !== null) {
+        firebase.database().ref('/campaigns/' + campaign + '/characters/' + _pj).set(pj)
+        this.value = ''
+      } else {
+        document.querySelector('.master-copy-pj-error').innerHTML = '<p class="error">El personaje no existe</p>'
+      }
+    })
   }
 
   const _pjSwipe = (start, end) => {

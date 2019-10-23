@@ -117,6 +117,18 @@ export function pjList (campaign, pj) {
       }
       document.querySelector('.js-list').innerHTML = list
       inputListener()
+
+      let archive = document.querySelectorAll('.master-archive-pj')
+      for (let a = 0; a < archive.length; a++) {
+        archive[a].addEventListener('click', function () {
+          let _pj = this.dataset.pj
+          firebase.database().ref('/campaigns/' + window.sessionStorage.getItem('campaign') + '/characters/' + _pj).once('value', function (snapshot) {
+            let pj = snapshot.val()
+            firebase.database().ref('/archive/' + _pj).set(pj)
+            firebase.database().ref('/campaigns/' + window.sessionStorage.getItem('campaign') + '/characters/' + _pj).remove()
+          })
+        })
+      }
     })
   } else {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {

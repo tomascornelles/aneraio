@@ -11,18 +11,26 @@ export const pjTemplate = (pj, editable) => {
       <h3>${pj.class} ${pj.race} nivel ${pj.level}</h3>
       <table>
         <tr>
-          <th>Cuerpo</th>
-          <th>Mente</th>
-          <th>Espíritu</th>
+          <th style="width: 33.333%">Cuerpo</th>
+          <th style="width: 33.333%">Mente</th>
+          <th style="width: 33.333%">Espíritu</th>
         <tr>
         <tr>
           <td><span class="stat">${pj.body}</span></td>
           <td><span class="stat">${pj.mind}</span></td>
           <td><span class="stat">${pj.soul}</span></td>
         <tr>
+      </table>
+      <table>
         <tr>
-          <th style="text-align: left" colspan="2">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
-          <td style="text-align: right"><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <th style="width: 33.333%">Estrés (max: ${10 + parseInt(pj.body) + parseInt(pj.level)})</th>
+          <th style="width: 33.333%">CA</th>
+          <th style="width: 33.333%">Defensa</th>
+        <tr>
+        <tr>
+          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/></td>
+          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="ac" value="${pj.ac}" ${disabled}/></td>
+          <td><span class="stat">${parseInt(pj.level) + parseInt(pj.soul) + parseInt(pj.ac)}</span></td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + parseInt(pj.body) + parseInt(pj.level))) * 10)}"></div>
@@ -41,8 +49,10 @@ export const pjTemplateShort = (pj, id, editable) => {
     ? 'contenteditable'
     : ''
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
+  let archive = (editable) ? `<span class="close btn master-archive-pj" data-pj="${id}">✖</span>` : ''
   return `
     <div class="pj-sheet card">
+      ${archive}
       <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
       ${pjId}<h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
       <table>

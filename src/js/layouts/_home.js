@@ -24,7 +24,7 @@ export const homeLayout = () => {
         <div class="home-app card text-center">
           <h2>Entra en una campaña</h2>
           <p>
-            <form class="home-form container--flex" onsubmit="submitHome()">
+            <form class="home-form container--flex">
               <input type="text" class="input home-form-campaign" autofocus>
               <input type="submit" value="Entrar" class="btn btn--flat">
             </form>

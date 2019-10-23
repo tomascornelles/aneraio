@@ -41,6 +41,13 @@ export const masterLayout = () => {
       <!--<p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
       <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>-->
       <p> <a class="btn btn--wide js-command" data-command="/2d20">Ventaja</a> </p>
+      <p>
+        <form class="master-copy-pj container--flex">
+          <input type="text" class="input input--wide master-copy-pj-input" placeholder="campaña/personaje">
+          <input type="submit" value="Incorporar PJ" class="btn btn--wide">
+        </form>
+      </p>
+      <div class="master-copy-pj-error"></div>
     </div>
     <nav class="tabs row">
       <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>
