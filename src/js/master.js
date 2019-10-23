@@ -41,6 +41,18 @@ export const master = (ctx) => {
 
     loadMenu(menu)
 
+    const tabs = document.querySelectorAll('.js-tab')
+
+    for (let i = 0; i < tabs.length; i++) {
+      tabs[i].addEventListener('click', function () {
+        document.querySelector('.tab--active').classList.remove('tab--active')
+        document.querySelector('.tab--' + this.dataset.tab).classList.add('tab--active')
+        document.querySelector('.button--active').classList.remove('button--active')
+        this.classList.add('button--active')
+        tab = this.dataset.tab
+      })
+    }
+
     pjList(campaign, 'master')
     chat(campaign, 'master')
 
