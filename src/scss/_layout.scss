@@ -130,15 +130,27 @@ header {
     margin-top: 0;
   }
   .card {
-    opacity: .3;
     transition: all .3s ease;
+  }
+  .inactive {
+    opacity: .6;
+    filter: grayscale(100%);
+    
+    table, .stress {
+      display: none;
+    }
 
     &:hover {
       opacity: 1;
+      filter: grayscale(0%);
+
+      table {
+        display: table;
+      }
+      .stress {
+        display: block;
+      }
     }
-  }
-  .active {
-    opacity: 1;
   }
 }
 .js-pj {

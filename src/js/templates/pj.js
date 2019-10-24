@@ -50,9 +50,9 @@ export const pjTemplateShort = (pj, id, editable) => {
     : ''
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
   let archive = (editable) ? `<span class="close btn master-archive-pj" data-pj="${id}">✖</span>` : ''
-  let active = (pj.active) ? 'active' : ''
+  let inactive = (!pj.active) ? 'inactive' : ''
   return `
-    <div class="pj-sheet card ${active}">
+    <div class="pj-sheet card ${inactive}">
       ${archive}
       <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
       ${pjId}<h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
