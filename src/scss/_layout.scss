@@ -166,6 +166,7 @@ header {
 .js-timetracker {
   font-size: 3rem;
   text-align: center;
+  display: block;
 
   &:after {
     content: 'h'

@@ -3,6 +3,7 @@ import 'firebase/database'
 import { dbInit } from './db.js'
 import { masterLayout } from './layouts/_master.js'
 import { chat, command, pjList, swipe, loadMenu } from './utils.js'
+import { parse } from 'url'
 
 export const master = (ctx) => {
   let campaign = ctx.params.campaign
@@ -88,8 +89,31 @@ export const master = (ctx) => {
     }
 
     document.querySelector('.master-copy-pj').addEventListener('submit', _copyPj)
+    firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
+      let campaign = snapshot.val()
+      document.querySelector('.js-timetracker').innerHTML = campaign.time
+    })
+    document.querySelector('.js-timetracker-plus').addEventListener('click', function () {
+      let value = document.querySelector('.js-timetracker').innerHTML
+      value++
+      alert(value)
+      firebase.database().ref('/campaigns/' + campaign).update({time: value})
+    })
+    document.querySelector('.js-timetracker-minus').addEventListener('click', function () {
+      let value = document.querySelector('.js-timetracker').innerHTML
+      value--
+      alert(value)
+      firebase.database().ref('/campaigns/' + campaign).update({time: value})
+    })
 
     swipe(_pjSwipe)
+  }
+
+  const _timeTracker = () => {
+    let value = document.querySelector('.js-timetracker').innerHTML
+    value = parseInt(value) + parseInt(this.dataset.time)
+    alert(value)
+    firebase.database().ref('/campaigns/' + campaign).update({time: value})
   }
 
   const _copyPj = (e) => {

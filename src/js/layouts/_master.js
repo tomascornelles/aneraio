@@ -48,6 +48,11 @@ export const masterLayout = () => {
         </form>
       </p>
       <div class="master-copy-pj-error"></div>
+      <div class="container--flex">
+        <div class="content-fg1"><button class="btn btn--wide js-timetracker-minus" data-time="-1">-</button></div>
+        <div class="content-fg1"><span class="js-timetracker">0</span></div>
+        <div class="content-fg1"><button class="btn btn--wide js-timetracker-plus" data-time="+1">+</button></div>
+      </div>
     </div>
     <nav class="tabs row">
       <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>
