@@ -96,13 +96,13 @@ export const master = (ctx) => {
     document.querySelector('.js-timetracker-plus').addEventListener('click', function () {
       let value = document.querySelector('.js-timetracker').innerHTML
       value++
-      alert(value)
+      if (value === 24) value = 0
       firebase.database().ref('/campaigns/' + campaign).update({time: value})
     })
     document.querySelector('.js-timetracker-minus').addEventListener('click', function () {
       let value = document.querySelector('.js-timetracker').innerHTML
       value--
-      alert(value)
+      if (value === -1) value = 23
       firebase.database().ref('/campaigns/' + campaign).update({time: value})
     })
 
