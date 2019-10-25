@@ -701,7 +701,8 @@ export const pjGenerator = () => {
     'size': _race.size,
     'skills': '',
     'soul': _class.soul,
-    'stress': 11 + parseInt(_class.body),
-    'wealth': '2'
+    'stress': 12 + parseInt(_class.body),
+    'wealth': '1',
+    'ac': 0
   }
 }

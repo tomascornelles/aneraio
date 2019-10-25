@@ -79,7 +79,7 @@ export const newPj = (ctx) => {
       firebase.database().ref('/campaigns/' + _campaign + '/characters/' + id).once('value', function (snapshot) {
         if (!snapshot.val()) {
           firebase.database().ref('/campaigns/' + _campaign + '/characters/' + id).set(pj)
-          page('/campaign/' + _campaign + '/' + id)
+          window.open('/campaign/' + _campaign + '/' + id, '_self')
         } else {
           var p = document.createElement('p')
           p.classList.add('error')
