@@ -21,7 +21,7 @@ export const newCampaignLayout = () => {
     <article class="js-main">
       <div class="campaign card">
         <p>
-          <form class="campaign-form container--flex" autocomplete="off">
+          <form class="campaign-form" autocomplete="off">
             <label for="name">Contraseña para el narrador</label>
             <input type="password" id="pass" class="input input--wide input--top" autofocus>
             <input type="password" id="pass2" class="input input--wide input--bottom" placeholder="repite la contraseña">

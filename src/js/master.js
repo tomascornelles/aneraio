@@ -6,6 +6,7 @@ import { chat, command, pjList, swipe, loadMenu } from './utils.js'
 
 export const master = (ctx) => {
   let campaign = ctx.params.campaign
+  let campaignData
   let tab = 'chat'
 
   const _init = (campaign) => {
@@ -19,27 +20,37 @@ export const master = (ctx) => {
     firebase.database().ref('/campaigns/' + campaign).off()
 
     document.querySelector('#app').innerHTML = masterLayout()
+    // let select = document.querySelector('.js-master-input')
+    firebase.database().ref('/headers').once('value', function (snapshot) {
+      let headers = snapshot.val()
 
-    document.querySelector('.js-title').innerHTML = campaign + ' Master'
+      firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
+        campaignData = snapshot.val()
+        document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
+        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
 
-    let menu = []
-    menu.push({
-      name: 'Inicio',
-      url: '/',
-      position: '.js-breadcrum'
-    })
-    menu.push({
-      name: campaign.toUpperCase(),
-      url: `/campaign/${campaign}`,
-      position: '.js-breadcrum'
-    })
-    menu.push({
-      name: 'Manual del jugador',
-      url: 'https://tomascornelles.com/aneraio',
-      position: '.js-extra-links'
-    })
+        document.querySelector('.js-title').innerHTML = campaignData.name + ' - Master'
 
-    loadMenu(menu)
+        let menu = []
+        menu.push({
+          name: 'Inicio',
+          url: '/',
+          position: '.js-breadcrum'
+        })
+        menu.push({
+          name: campaignData.name,
+          url: `/campaign/${campaign}`,
+          position: '.js-breadcrum'
+        })
+        menu.push({
+          name: 'Manual del jugador',
+          url: 'https://tomascornelles.com/aneraio',
+          position: '.js-extra-links'
+        })
+
+        loadMenu(menu)
+      })
+    })
 
     const tabs = document.querySelectorAll('.js-tab')
 
@@ -55,18 +66,6 @@ export const master = (ctx) => {
 
     pjList(campaign, 'master')
     chat(campaign, 'master')
-
-    // let select = document.querySelector('.js-master-input')
-    firebase.database().ref('/headers').once('value', function (snapshot) {
-      let headers = snapshot.val()
-      let campaignData
-
-      firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
-        campaignData = snapshot.val()
-        document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
-        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
-      })
-    })
 
     let btnCommand = document.querySelectorAll('.js-command')
     for (let i = 0; i < btnCommand.length; i++) {

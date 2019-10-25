@@ -16,25 +16,6 @@ export const pj = (ctx) => {
     dbInit()
     document.querySelector('#app').innerHTML = pjLayout()
 
-    let menu = []
-    menu.push({
-      name: 'Inicio',
-      url: '/',
-      position: '.js-breadcrum'
-    })
-    menu.push({
-      name: campaign.toUpperCase(),
-      url: `/campaign/${campaign}`,
-      position: '.js-breadcrum'
-    })
-    menu.push({
-      name: 'Manual del jugador',
-      url: 'https://tomascornelles.com/aneraio',
-      position: '.js-extra-links'
-    })
-
-    loadMenu(menu)
-
     const tabs = document.querySelectorAll('.js-tab')
 
     for (let i = 0; i < tabs.length; i++) {
@@ -65,10 +46,29 @@ export const pj = (ctx) => {
   const _pjSheet = (campaign, character) => {
     firebase.database().ref('/headers').once('value', function (snapshot) {
       let headers = snapshot.val()
-      firebase.database().ref('/campaigns/' + campaign + '/header').on('value', function (snapshot) {
-        let header = snapshot.val()
-        document.querySelector('header').style.backgroundImage = `url(${headers[header]})`
-        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[header]})`
+      firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
+        let campaignData = snapshot.val()
+        document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
+        document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
+
+        let menu = []
+        menu.push({
+          name: 'Inicio',
+          url: '/',
+          position: '.js-breadcrum'
+        })
+        menu.push({
+          name: campaignData.name,
+          url: `/campaign/${campaign}`,
+          position: '.js-breadcrum'
+        })
+        menu.push({
+          name: 'Manual del jugador',
+          url: 'https://tomascornelles.com/aneraio',
+          position: '.js-extra-links'
+        })
+
+        loadMenu(menu)
       })
     })
     firebase.database().ref('/campaigns/' + campaign + '/characters/' + character).on('value', function (snapshot) {

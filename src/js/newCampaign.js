@@ -60,7 +60,8 @@ export const newCampaign = () => {
             description: description,
             name: name,
             pass: pass.trim(),
-            header: 'day'
+            header: 'day',
+            time: 12
           })
           window.open('/campaign/' + id, '_self')
         } else {
