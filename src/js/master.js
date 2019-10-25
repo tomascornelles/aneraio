@@ -56,7 +56,7 @@ export const master = (ctx) => {
     pjList(campaign, 'master')
     chat(campaign, 'master')
 
-    let select = document.querySelector('.js-master-input')
+    // let select = document.querySelector('.js-master-input')
     firebase.database().ref('/headers').once('value', function (snapshot) {
       let headers = snapshot.val()
       let campaignData
@@ -65,20 +65,20 @@ export const master = (ctx) => {
         campaignData = snapshot.val()
         document.querySelector('header').style.backgroundImage = `url(${headers[campaignData.header]})`
         document.querySelector('header nav .bg-image').style.backgroundImage = `url(${headers[campaignData.header]})`
-        for (const key in headers) {
-          if (headers.hasOwnProperty(key)) {
-            let option = document.createElement('option')
-            option.value = key
-            option.innerHTML = key
-            option.selected = (campaignData.header === key)
-            select.append(option)
-          }
-        }
+        // for (const key in headers) {
+        //   if (headers.hasOwnProperty(key)) {
+        //     let option = document.createElement('option')
+        //     option.value = key
+        //     option.innerHTML = key
+        //     option.selected = (campaignData.header === key)
+        //     select.append(option)
+        //   }
+        // }
       })
     })
-    select.addEventListener('change', function () {
-      firebase.database().ref('/campaigns/' + campaign).update({header: this.value})
-    })
+    // select.addEventListener('change', function () {
+    //   firebase.database().ref('/campaigns/' + campaign).update({header: this.value})
+    // })
 
     let btnCommand = document.querySelectorAll('.js-command')
     for (let i = 0; i < btnCommand.length; i++) {
@@ -93,16 +93,34 @@ export const master = (ctx) => {
       document.querySelector('.js-timetracker').innerHTML = campaign.time
     })
     document.querySelector('.js-timetracker-plus').addEventListener('click', function () {
-      let value = document.querySelector('.js-timetracker').innerHTML
-      value++
-      if (value === 24) value = 0
-      firebase.database().ref('/campaigns/' + campaign).update({time: value})
+      let time = document.querySelector('.js-timetracker').innerHTML
+      time++
+      if (time === 24) time = 0
+      let header = (time < 6)
+        ? 'night'
+        : (time < 8)
+          ? 'dawn'
+          : (time < 19)
+            ? 'day'
+            : (time < 21)
+              ? 'dawn'
+              : 'night'
+      firebase.database().ref('/campaigns/' + campaign).update({time: time, header: header})
     })
     document.querySelector('.js-timetracker-minus').addEventListener('click', function () {
-      let value = document.querySelector('.js-timetracker').innerHTML
-      value--
-      if (value === -1) value = 23
-      firebase.database().ref('/campaigns/' + campaign).update({time: value})
+      let time = document.querySelector('.js-timetracker').innerHTML
+      time--
+      if (time === -1) time = 23
+      let header = (time < 6)
+        ? 'night'
+        : (time < 8)
+          ? 'dawn'
+          : (time < 19)
+            ? 'day'
+            : (time < 21)
+              ? 'dawn'
+              : 'night'
+      firebase.database().ref('/campaigns/' + campaign).update({time: time, header: header})
     })
 
     swipe(_pjSwipe)
