@@ -5,10 +5,20 @@ export const pjTemplate = (pj, editable) => {
   let contenteditable = (editable)
     ? 'contenteditable'
     : ''
+  let type = (pj.type === 'fighter')
+    ? 'Luchador'
+    : (pj.type === 'mentalist')
+      ? 'Mentalista'
+      : 'Hábil'
+  let size = (pj.size === 'small')
+    ? 'pequeño'
+    : (pj.size === 'medium')
+      ? 'mediano'
+      : 'grande'
   return `
     <div class="pj-sheet card">
       <h2>${pj.name}</h2>
-      <h3>${pj.class} ${pj.race} nivel ${pj.level}</h3>
+      <h3>${pj.class} ${pj.race} <small>(${type} ${size})</small></h3>
       <table>
         <tr>
           <th style="width: 33.333%">Cuerpo</th>
@@ -51,11 +61,14 @@ export const pjTemplateShort = (pj, id, editable) => {
   let pjId = (editable) ? `<sup class="master">${id}</sup>` : ''
   let archive = (editable) ? `<span class="close btn master-archive-pj" data-pj="${id}">✖</span>` : ''
   let inactive = (!pj.active) ? 'inactive' : ''
+  let typeSize = (editable)
+    ? `<br><span class="pj-input" data-pj="${pj.id}" data-attribute="type" ${contenteditable}>${pj.type}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="size" ${contenteditable}>${pj.size}</span>`
+    : ``
   return `
     <div class="pj-sheet card ${inactive}">
       ${archive}
       <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
-      ${pjId}<h3>${pj.class} ${pj.race} nivel <span class="pj-input" data-pj="${pj.id}" data-attribute="level" ${contenteditable}>${pj.level}</span></h3>
+      ${pjId}<h3><span class="pj-input" data-pj="${pj.id}" data-attribute="class" ${contenteditable}>${pj.class}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="race" ${contenteditable}>${pj.race}</span> ${typeSize}</h3>
       <table>
         <tr>
           <th>Cuerpo</th>
@@ -67,12 +80,12 @@ export const pjTemplateShort = (pj, id, editable) => {
           <td><span data-pj="${pj.id}" data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
           <td><span data-pj="${pj.id}" data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
-          <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</td>
+          <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + 2 * parseInt(pj.body)}</td>
         <tr>
       </table>
-      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + (2 + parseInt(pj.body)) * parseInt(pj.level))) * 10)}"></div>
+      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + 2 * parseInt(pj.body))) * 10)}"></div>
       <div class="content-hidden">
-        <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
+        <p><strong>Equipo</strong> (Riqueza: <span class="pj-input" data-pj="${pj.id}" data-attribute="wealth" ${contenteditable}>${pj.wealth}</span>)</p>
         <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
         <p><strong>Habilidades</strong></p>
         <div ${contenteditable} data-pj="${pj.id}" data-attribute="skills" class="pj-input">${pj.skills}</div>
@@ -139,8 +152,8 @@ export const pjTemplateNew = (pj, editable) => {
           </td>
         <tr>
         <tr>
-          <th style="text-align: left" colspan="2">Estrés máximo: ${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</th>
-          <input type="hidden" class="pj-input" data-attribute="stress" value="${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}">
+          <th style="text-align: left" colspan="2">Estrés máximo: ${10 + 2 * parseInt(pj.body)}</th>
+          <input type="hidden" class="pj-input" data-attribute="stress" value="${10 + 2 * parseInt(pj.body)}">
         <tr>
       </table>
       <p><strong>Descripción</strong></p>
