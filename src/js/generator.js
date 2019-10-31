@@ -185,180 +185,39 @@ const texts = {
   ],
 
   _class: [
-    {
-      name: 'Bárbaro',
-      body: '3',
-      mind: '0',
-      soul: '0',
-      type: 'fighter'
-    },
-    {
-      name: 'Guerrero',
-      body: '2',
-      mind: '0',
-      soul: '1',
-      type: 'fighter'
-    },
-    {
-      name: 'Paladín',
-      body: '2',
-      mind: '1',
-      soul: '0',
-      type: 'fighter'
-    },
-    {
-      name: 'Paladín',
-      body: '2',
-      mind: '1',
-      soul: '0',
-      type: 'mentalist'
-    },
-    {
-      name: 'Pícaro',
-      body: '1',
-      mind: '0',
-      soul: '2',
-      type: 'rogue'
-    },
-    {
-      name: 'Pícaro',
-      body: '1',
-      mind: '0',
-      soul: '2',
-      type: 'fighter'
-    },
-    {
-      name: 'Ladrón',
-      body: '0',
-      mind: '0',
-      soul: '3',
-      type: 'rogue'
-    },
-    {
-      name: 'Ladrón',
-      body: '0',
-      mind: '0',
-      soul: '3',
-      type: 'fighter'
-    },
-    {
-      name: 'Bardo',
-      body: '0',
-      mind: '1',
-      soul: '2',
-      type: 'rogue'
-    },
-    {
-      name: 'Bardo',
-      body: '0',
-      mind: '2',
-      soul: '1',
-      type: 'mentalist'
-    },
-    {
-      name: 'Druida',
-      body: '0',
-      mind: '2',
-      soul: '1',
-      type: 'mentalist'
-    },
-    {
-      name: 'Mago',
-      body: '0',
-      mind: '2',
-      soul: '1',
-      type: 'mentalist'
-    },
-    {
-      name: 'Clérigo',
-      body: '1',
-      mind: '2',
-      soul: '0',
-      type: 'mentalist'
-    },
-    {
-      name: 'Hechicero',
-      body: '0',
-      mind: '3',
-      soul: '0',
-      type: 'mentalist'
-    },
-    {
-      name: 'Guardabosques',
-      body: '1',
-      mind: '1',
-      soul: '1',
-      type: 'rogue'
-    },
-    {
-      name: 'Guardabosques',
-      body: '1',
-      mind: '1',
-      soul: '1',
-      type: 'fighter'
-    },
-    {
-      name: 'Guardabosques',
-      body: '1',
-      mind: '1',
-      soul: '1',
-      type: 'mentalist'
-    }
+    { name: 'Bárbaro', body: '3', mind: '0', soul: '0', type: 'fighter' },
+    { name: 'Bardo', body: '0', mind: '1', soul: '2', type: 'rogue' },
+    { name: 'Bardo', body: '0', mind: '2', soul: '1', type: 'mentalist' },
+    { name: 'Clérigo', body: '1', mind: '2', soul: '0', type: 'mentalist' },
+    { name: 'Druida', body: '0', mind: '2', soul: '1', type: 'mentalist' },
+    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'fighter' },
+    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'mentalist' },
+    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'rogue' },
+    { name: 'Guerrero', body: '2', mind: '0', soul: '1', type: 'fighter' },
+    { name: 'Hechicero', body: '0', mind: '3', soul: '0', type: 'mentalist' },
+    { name: 'Ladrón', body: '0', mind: '0', soul: '3', type: 'fighter' },
+    { name: 'Ladrón', body: '0', mind: '0', soul: '3', type: 'rogue' },
+    { name: 'Mago', body: '0', mind: '2', soul: '1', type: 'mentalist' },
+    { name: 'Paladín', body: '2', mind: '1', soul: '0', type: 'fighter' },
+    { name: 'Paladín', body: '2', mind: '1', soul: '0', type: 'mentalist' },
+    { name: 'Pícaro', body: '1', mind: '0', soul: '2', type: 'fighter' },
+    { name: 'Pícaro', body: '1', mind: '0', soul: '2', type: 'rogue' }
   ],
 
   _race: [
-    {
-      name: 'Dracónido',
-      size: 'medium'
-    },
-    {
-      name: 'Elfo',
-      size: 'medium'
-    },
-    {
-      name: 'Enano',
-      size: 'small'
-    },
-    {
-      name: 'Humano',
-      size: 'medium'
-    },
-    {
-      name: 'Semielfo',
-      size: 'medium'
-    },
-    {
-      name: 'Semiorco',
-      size: 'medium'
-    },
-    {
-      name: 'Halfing',
-      size: 'small'
-    },
-    {
-      name: 'Gnomo',
-      size: 'small'
-    },
-    {
-      name: 'Tiefling',
-      size: 'medium'
-    },
-    {
-      name: 'Tritón',
-      size: 'medium'
-    },
-    {
-      name: 'Gigante',
-      size: 'large'
-    },
-    {
-      name: 'Goliath',
-      size: 'large'
-    },
-    {
-      name: 'Centauro',
-      size: 'large'
-    }
+    { name: 'Centauro', size: 'large' },
+    { name: 'Dracónido', size: 'medium' },
+    { name: 'Elfo', size: 'medium' },
+    { name: 'Enano', size: 'small' },
+    { name: 'Gigante', size: 'large' },
+    { name: 'Gnomo', size: 'small' },
+    { name: 'Goliath', size: 'large' },
+    { name: 'Halfing', size: 'small' },
+    { name: 'Humano', size: 'medium' },
+    { name: 'Semielfo', size: 'medium' },
+    { name: 'Semiorco', size: 'medium' },
+    { name: 'Tiefling', size: 'medium' },
+    { name: 'Tritón', size: 'medium' }
   ],
 
   _location: [
@@ -762,7 +621,6 @@ export const pjGenerator = () => {
     'type': _class.type,
     'description': _desc,
     'equip': '',
-    'level': '1',
     'mind': _class.mind,
     'name': `${_name} ${_surname}`,
     'race': _race.name,
