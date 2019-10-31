@@ -1,8 +1,63 @@
 const texts = {
+
+  _names: [
+    'Lexand Horne',
+    'Munder',
+    'Harder',
+    'Pholes',
+    'Thelry',
+    'Wilher',
+    'Aeweald',
+    'Wulfa',
+    'Here',
+    'Jamart',
+    'Raffin',
+    'Tondbeorht',
+    'Anied',
+    'Iged',
+    'Yodwin',
+    'Eadulf',
+    'Helwy',
+    'Ralphye Gare',
+    'Rewill',
+    'Edfrith',
+    'Rewill Kesell',
+    'Reyny',
+    'Wulfa',
+    'Goda',
+    'Rebert',
+    'Robern Vinte',
+    'Ryany',
+    'Driffolk',
+    'Eaddaf',
+    'Helmund',
+    'Brither',
+    'Ether',
+    'Mesym Woode',
+    'Dere',
+    'Walteph Page',
+    'Altel',
+    'Bertio',
+    'Oswulf',
+    'Igelm',
+    'Nathye',
+    'Reder',
+    'Monder',
+    'Wisym',
+    'Lany Caney',
+    'Artis',
+    'Wine',
+    'Werher',
+    'Lesym',
+    'Cheny Parry',
+    'Wulffre'
+  ],
+
   _gender: [
     'm',
     'f'
   ],
+
   _preadj: [
     '',
     'nada',
@@ -11,6 +66,7 @@ const texts = {
     'muy',
     'extremadamente'
   ],
+
   _adjective: [
     'abierto',
     'agradable',
@@ -151,11 +207,25 @@ const texts = {
       type: 'fighter'
     },
     {
+      name: 'Paladín',
+      body: '2',
+      mind: '1',
+      soul: '0',
+      type: 'mentalist'
+    },
+    {
       name: 'Pícaro',
       body: '1',
       mind: '0',
       soul: '2',
       type: 'rogue'
+    },
+    {
+      name: 'Pícaro',
+      body: '1',
+      mind: '0',
+      soul: '2',
+      type: 'fighter'
     },
     {
       name: 'Ladrón',
@@ -165,11 +235,32 @@ const texts = {
       type: 'rogue'
     },
     {
+      name: 'Ladrón',
+      body: '0',
+      mind: '0',
+      soul: '3',
+      type: 'fighter'
+    },
+    {
       name: 'Bardo',
       body: '0',
       mind: '1',
       soul: '2',
       type: 'rogue'
+    },
+    {
+      name: 'Bardo',
+      body: '0',
+      mind: '2',
+      soul: '1',
+      type: 'mentalist'
+    },
+    {
+      name: 'Druida',
+      body: '0',
+      mind: '2',
+      soul: '1',
+      type: 'mentalist'
     },
     {
       name: 'Mago',
@@ -198,13 +289,27 @@ const texts = {
       mind: '1',
       soul: '1',
       type: 'rogue'
+    },
+    {
+      name: 'Guardabosques',
+      body: '1',
+      mind: '1',
+      soul: '1',
+      type: 'fighter'
+    },
+    {
+      name: 'Guardabosques',
+      body: '1',
+      mind: '1',
+      soul: '1',
+      type: 'mentalist'
     }
   ],
 
   _race: [
     {
       name: 'Dracónido',
-      size: 'large'
+      size: 'medium'
     },
     {
       name: 'Elfo',
@@ -213,14 +318,6 @@ const texts = {
     {
       name: 'Enano',
       size: 'small'
-    },
-    {
-      name: 'Mediano',
-      size: 'small'
-    },
-    {
-      name: 'Tiflin',
-      size: 'medium'
     },
     {
       name: 'Humano',
@@ -232,7 +329,7 @@ const texts = {
     },
     {
       name: 'Semiorco',
-      size: 'large'
+      size: 'medium'
     },
     {
       name: 'Halfing',
@@ -241,6 +338,26 @@ const texts = {
     {
       name: 'Gnomo',
       size: 'small'
+    },
+    {
+      name: 'Tiefling',
+      size: 'medium'
+    },
+    {
+      name: 'Tritón',
+      size: 'medium'
+    },
+    {
+      name: 'Gigante',
+      size: 'large'
+    },
+    {
+      name: 'Goliath',
+      size: 'large'
+    },
+    {
+      name: 'Centauro',
+      size: 'large'
     }
   ],
 
@@ -415,59 +532,6 @@ const texts = {
     'una ciudad donde los orcos se compran y venden como esclavos',
     'una orden secreta de monjes',
     'el ejercito imperial'
-  ],
-
-  _names: [
-    'Lexand Horne',
-    'Munder',
-    'Harder',
-    'Pholes',
-    'Thelry',
-    'Wilher',
-    'Aeweald',
-    'Wulfa',
-    'Here',
-    'Jamart',
-    'Raffin',
-    'Tondbeorht',
-    'Anied',
-    'Iged',
-    'Yodwin',
-    'Eadulf',
-    'Helwy',
-    'Ralphye Gare',
-    'Rewill',
-    'Edfrith',
-    'Rewill Kesell',
-    'Reyny',
-    'Wulfa',
-    'Goda',
-    'Rebert',
-    'Robern Vinte',
-    'Ryany',
-    'Driffolk',
-    'Eaddaf',
-    'Helmund',
-    'Brither',
-    'Ether',
-    'Mesym Woode',
-    'Dere',
-    'Walteph Page',
-    'Altel',
-    'Bertio',
-    'Oswulf',
-    'Igelm',
-    'Nathye',
-    'Reder',
-    'Monder',
-    'Wisym',
-    'Lany Caney',
-    'Artis',
-    'Wine',
-    'Werher',
-    'Lesym',
-    'Cheny Parry',
-    'Wulffre'
   ],
 
   _backstory: [
@@ -658,14 +722,14 @@ const texts = {
 const read = (item) => item[Math.floor(Math.random() * item.length)]
 
 export const pjGenerator = () => {
+  let _name = read(texts._names)
+  let _surname = read(texts._names)
   let _gender = read(texts._gender)
   let _class = read(texts._class)
   let _race = read(texts._race)
   let _preadj = read(texts._preadj)
   let _adj = read(texts._adjective)
   let _loc = read(texts._location)
-  let _name = read(texts._names)
-  let _surname = read(texts._names)
   let _history = read(texts._backstory)
   let _pre = 'Un'
 
@@ -682,10 +746,14 @@ export const pjGenerator = () => {
   let de = (_loc.indexOf('el') === 0) ? 'd' : 'de '
   let _desc = `${_pre} ${_class.name} ${_race.name} ${_preadj} ${_adj} ${de}${_loc}, que ${_history}`
 
-  if (_race.size === 'small') _class.body--
-  if (_race.size === 'small') _class.soul++
-  if (_race.size === 'large') _class.body++
-  if (_race.size === 'large') _class.soul--
+  if (_race.size === 'small') {
+    _class.body--
+    _class.soul++
+  }
+  if (_race.size === 'large') {
+    _class.body++
+    _class.soul--
+  }
 
   return {
     'active': false,
