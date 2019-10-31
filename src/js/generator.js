@@ -191,7 +191,7 @@ const texts = {
     { name: 'Clérigo', body: '1', mind: '2', soul: '0', type: 'mentalist' },
     { name: 'Druida', body: '0', mind: '2', soul: '1', type: 'mentalist' },
     { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'fighter' },
-    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'mentalist' },
+    { name: 'Nigromante', body: '0', mind: '3', soul: '0', type: 'mentalist' },
     { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'rogue' },
     { name: 'Guerrero', body: '2', mind: '0', soul: '1', type: 'fighter' },
     { name: 'Hechicero', body: '0', mind: '3', soul: '0', type: 'mentalist' },
