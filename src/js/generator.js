@@ -185,23 +185,24 @@ const texts = {
   ],
 
   _class: [
-    { name: 'Bárbaro', body: '3', mind: '0', soul: '0', type: 'fighter' },
-    { name: 'Bardo', body: '0', mind: '1', soul: '2', type: 'rogue' },
-    { name: 'Bardo', body: '0', mind: '2', soul: '1', type: 'mentalist' },
+    { name: 'Brujo', body: '1', mind: '2', soul: '0', type: 'mentalist' },
     { name: 'Clérigo', body: '1', mind: '2', soul: '0', type: 'mentalist' },
     { name: 'Druida', body: '0', mind: '2', soul: '1', type: 'mentalist' },
-    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'fighter' },
-    { name: 'Nigromante', body: '0', mind: '3', soul: '0', type: 'mentalist' },
-    { name: 'Guardabosques', body: '1', mind: '1', soul: '1', type: 'rogue' },
-    { name: 'Guerrero', body: '2', mind: '0', soul: '1', type: 'fighter' },
     { name: 'Hechicero', body: '0', mind: '3', soul: '0', type: 'mentalist' },
-    { name: 'Ladrón', body: '0', mind: '0', soul: '3', type: 'fighter' },
-    { name: 'Ladrón', body: '0', mind: '0', soul: '3', type: 'rogue' },
     { name: 'Mago', body: '0', mind: '2', soul: '1', type: 'mentalist' },
+    { name: 'Nigromante', body: '0', mind: '3', soul: '0', type: 'mentalist' },
+    { name: 'Bárbaro', body: '3', mind: '0', soul: '0', type: 'fighter' },
+    { name: 'Berserker', body: '3', mind: '0', soul: '0', type: 'fighter' },
+    { name: 'Caballero', body: '2', mind: '0', soul: '1', type: 'fighter' },
+    { name: 'Guerrero', body: '2', mind: '0', soul: '1', type: 'fighter' },
+    { name: 'Monje', body: '2', mind: '1', soul: '0', type: 'fighter' },
     { name: 'Paladín', body: '2', mind: '1', soul: '0', type: 'fighter' },
-    { name: 'Paladín', body: '2', mind: '1', soul: '0', type: 'mentalist' },
-    { name: 'Pícaro', body: '1', mind: '0', soul: '2', type: 'fighter' },
-    { name: 'Pícaro', body: '1', mind: '0', soul: '2', type: 'rogue' }
+    { name: 'Bardo', body: '0', mind: '1', soul: '2', type: 'rogue' },
+    { name: 'Explorador', body: '1', mind: '0', soul: '2', type: 'rogue' },
+    { name: 'Escaldo', body: '0', mind: '1', soul: '2', type: 'rogue' },
+    { name: 'Guardabosques', body: '1', mind: '0', soul: '2', type: 'rogue' },
+    { name: 'Ladrón', body: '0', mind: '0', soul: '3', type: 'rogue' },
+    { name: 'Pícaro', body: '0', mind: '0', soul: '3', type: 'rogue' }
   ],
 
   _race: [
