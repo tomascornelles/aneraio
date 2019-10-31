@@ -25,7 +25,7 @@ export const homeLayout = () => {
           <h2>Entra en una campaña</h2>
           <p>
             <form class="home-form container--flex">
-              <input type="text" class="input home-form-campaign" autofocus>
+              <input type="text" class="input input--wide home-form-campaign" autofocus>
               <input type="submit" value="Entrar" class="btn btn--flat">
             </form>
           </p>

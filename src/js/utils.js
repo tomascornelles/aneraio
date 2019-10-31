@@ -235,6 +235,9 @@ export function swipe (callback) {
 }
 
 export function loadMenu (menu) {
+  document.querySelector('.js-menu').innerHTML = ''
+  document.querySelector('.js-breadcrum').innerHTML = ''
+  document.querySelector('.js-extra-links').innerHTML = ''
   let link = document.createElement('option')
   link.value = ''
   link.innerHTML = '☰'
