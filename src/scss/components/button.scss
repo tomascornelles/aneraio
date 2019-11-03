@@ -120,6 +120,27 @@
       }
     }
   }
+
+}
+
+
+.btn--activate {
+  float: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  &:before {
+    content: '⬣';
+  }
+}
+.inactive {
+
+  .btn--activate {
+    &:before {
+      content: '⎔'
+    }
+  }
 }
 
 

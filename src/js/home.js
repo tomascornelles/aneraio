@@ -13,7 +13,7 @@ export const home = (ctx) => {
       position: '.js-extra-links'
     })
 
-    loadMenu(menu)
+    // loadMenu(menu)
 
     if (typeof error !== 'undefined' && error === 'campaign') {
       document.querySelector('.error').innerHTML = `<h2 class="">La campaña no existe</h2>`

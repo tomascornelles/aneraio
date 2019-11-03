@@ -38,12 +38,12 @@ export const pjTemplate = (pj, editable) => {
           <th style="width: 33.333%">Defensa</th>
         <tr>
         <tr>
-          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/>/${10 + (2 + parseInt(pj.body)) * parseInt(pj.level)}</td>
+          <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="stress" value="${pj.stress}" ${disabled}/>/${10 + 2 * parseInt(pj.body)}</td>
           <td><input type="number" class="pj-input input input--mini" data-pj="${pj.id}" data-attribute="ac" value="${pj.ac}" ${disabled}/></td>
-          <td><span class="stat">${parseInt(pj.level) + parseInt(pj.soul) + parseInt(pj.ac)}</span></td>
+          <td><span class="stat">${parseInt(pj.soul) + parseInt(pj.ac)}</span></td>
         <tr>
       </table>
-      <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + (2 + parseInt(pj.body)) * parseInt(pj.level))) * 10)}"></div>
+      <div class="stress stress--${Math.round(parseInt(pj.stress) / (10 + 2 * parseInt(pj.body)) ) * 10}"></div>
       <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
       <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
@@ -64,23 +64,31 @@ export const pjTemplateShort = (pj, id, editable) => {
   let typeSize = (editable)
     ? `<br><span class="pj-input" data-pj="${pj.id}" data-attribute="type" ${contenteditable}>${pj.type}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="size" ${contenteditable}>${pj.size}</span>`
     : ``
+  let activate = (editable)
+    ? (!pj.active)
+      ? `<button class="btn--activate js-activate" data-activate="true" data-pj="${pj.id}"></button>`
+      : `<button class="btn--activate js-activate" data-activate="false" data-pj="${pj.id}"></button>`
+    : ``
   return `
     <div class="pj-sheet card ${inactive}">
       ${archive}
+      ${activate}
       <h2 class="pj-input" data-pj="${pj.id}" data-attribute="name" ${contenteditable}>${pj.name} </h2>
-      ${pjId}<h3><span class="pj-input" data-pj="${pj.id}" data-attribute="class" ${contenteditable}>${pj.class}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="race" ${contenteditable}>${pj.race}</span> ${typeSize}</h3>
+      ${pjId}<h3 class="content-hidden"><span class="pj-input" data-pj="${pj.id}" data-attribute="class" ${contenteditable}>${pj.class}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="race" ${contenteditable}>${pj.race}</span> ${typeSize}</h3>
       <table>
         <tr>
           <th>Cuerpo</th>
           <th>Mente</th>
           <th>Espíritu</th>
           <th>Estrés</th>
+          <th>CA/Defensa</th>
         <tr>
         <tr>
           <td><span data-pj="${pj.id}" data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
           <td><span data-pj="${pj.id}" data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + 2 * parseInt(pj.body)}</td>
+          <td><span data-pj="${pj.id}" data-attribute="ac" class="pj-input" ${contenteditable}>${pj.ac}</span>(${parseInt(pj.soul) + parseInt(pj.ac)})</td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + 2 * parseInt(pj.body))) * 10)}"></div>

@@ -139,7 +139,7 @@ header {
     opacity: .6;
     filter: grayscale(100%);
     
-    table, .stress {
+    table, .stress, h3 {
       display: none;
     }
 
@@ -150,7 +150,7 @@ header {
       table {
         display: table;
       }
-      .stress {
+      .stress, h3 {
         display: block;
       }
     }

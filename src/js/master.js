@@ -74,6 +74,7 @@ export const master = (ctx) => {
       })
     }
 
+
     document.querySelector('.master-copy-pj').addEventListener('submit', _copyPj)
     firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
       let campaign = snapshot.val()

@@ -132,6 +132,14 @@ export function pjList (campaign, pj) {
           })
         })
       }
+
+      let btnActivate = document.querySelectorAll('.js-activate')
+      for (let i = 0; i < btnActivate.length; i++) {
+        btnActivate[i].addEventListener('click', function () {
+          let activate = (this.dataset.activate === 'true')
+          firebase.database().ref('/campaigns/' + campaign + '/characters/' + this.dataset.pj).update({active: activate})
+        })
+      }
     })
   } else {
     firebase.database().ref('/campaigns/' + campaign + '/characters').on('value', function (snapshot) {
