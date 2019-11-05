@@ -22,6 +22,10 @@ h3 {
 .content-hidden {
   display: none;
 }
+.pj-sheet {
+  max-height: 80vh;
+  overflow: auto;
+}
 .pj-sheet:hover {
   .content-hidden {
     display: block;

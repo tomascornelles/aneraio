@@ -77,18 +77,20 @@ export const pjTemplateShort = (pj, id, editable) => {
       ${pjId}<h3 class="content-hidden"><span class="pj-input" data-pj="${pj.id}" data-attribute="class" ${contenteditable}>${pj.class}</span> <span class="pj-input" data-pj="${pj.id}" data-attribute="race" ${contenteditable}>${pj.race}</span> ${typeSize}</h3>
       <table>
         <tr>
-          <th>Cuerpo</th>
-          <th>Mente</th>
-          <th>Espíritu</th>
-          <th>Estrés</th>
-          <th>CA/Defensa</th>
+          <th>B</th>
+          <th>M</th>
+          <th>S</th>
+          <th>SP</th>
+          <th>CA</th>
+          <th>Def.</th>
         <tr>
         <tr>
           <td><span data-pj="${pj.id}" data-attribute="body" class="pj-input" ${contenteditable}>${pj.body}</span</td>
           <td><span data-pj="${pj.id}" data-attribute="mind" class="pj-input" ${contenteditable}>${pj.mind}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="soul" class="pj-input" ${contenteditable}>${pj.soul}</span></td>
           <td><span data-pj="${pj.id}" data-attribute="stress" class="pj-input" ${contenteditable}>${pj.stress}</span>/${10 + 2 * parseInt(pj.body)}</td>
-          <td><span data-pj="${pj.id}" data-attribute="ac" class="pj-input" ${contenteditable}>${pj.ac}</span>(${parseInt(pj.soul) + parseInt(pj.ac)})</td>
+          <td><span data-pj="${pj.id}" data-attribute="ac" class="pj-input" ${contenteditable}>${pj.ac}</span></td>
+          <td><strong>${parseInt(pj.soul) + parseInt(pj.ac)}</strong></td>
         <tr>
       </table>
       <div class="stress stress--${Math.round((parseInt(pj.stress) / (10 + 2 * parseInt(pj.body))) * 10)}"></div>

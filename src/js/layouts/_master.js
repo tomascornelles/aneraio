@@ -69,6 +69,11 @@ export const masterLayout = () => {
       <div class="container--flex">
         <div class="content-fg1"><a href="" target="_blank" class="btn btn--wide btn--principal js-city-link" data-time="-1">Crear ciudad</a></div>
       </div>
+      <h2>Generar nombre</h2>
+      <div class="">
+        <button class="btn btn--wide btn--toggle js-name-generator">Generar nombre</button>
+        <p class="js-name-generated name-generated"></p>
+      </div>
     </div>
     <nav class="tabs row">
       <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>

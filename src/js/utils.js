@@ -268,3 +268,64 @@ export function loadMenu (menu) {
     if (this.value.search(/^(http)/i) >= 0) { window.open(this.value, '_blank') } else { window.open(this.value, '_self') }
   })
 }
+
+export function nameGenerator () {
+  const _names = [
+    'Lexand Horne',
+    'Munder',
+    'Harder',
+    'Pholes',
+    'Thelry',
+    'Wilher',
+    'Aeweald',
+    'Wulfa',
+    'Here',
+    'Jamart',
+    'Raffin',
+    'Tondbeorht',
+    'Anied',
+    'Iged',
+    'Yodwin',
+    'Eadulf',
+    'Helwy',
+    'Ralphye Gare',
+    'Rewill',
+    'Edfrith',
+    'Rewill Kesell',
+    'Reyny',
+    'Wulfa',
+    'Goda',
+    'Rebert',
+    'Robern Vinte',
+    'Ryany',
+    'Driffolk',
+    'Eaddaf',
+    'Helmund',
+    'Brither',
+    'Ether',
+    'Mesym Woode',
+    'Dere',
+    'Walteph Page',
+    'Altel',
+    'Bertio',
+    'Oswulf',
+    'Igelm',
+    'Nathye',
+    'Reder',
+    'Monder',
+    'Wisym',
+    'Lany Caney',
+    'Artis',
+    'Wine',
+    'Werher',
+    'Lesym',
+    'Cheny Parry',
+    'Wulffre'
+  ]
+
+  const read = (item) => item[Math.floor(Math.random() * item.length)]
+
+  let _name = read(_names)
+  let _surname = read(_names)
+  return `${_name} ${_surname}`
+}

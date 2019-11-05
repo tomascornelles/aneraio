@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import { dbInit } from './db.js'
 import { masterLayout } from './layouts/_master.js'
-import { chat, command, pjList, swipe, loadMenu } from './utils.js'
+import { chat, command, pjList, swipe, loadMenu, nameGenerator } from './utils.js'
 
 export const master = (ctx) => {
   let campaign = ctx.params.campaign
@@ -134,6 +134,10 @@ export const master = (ctx) => {
       })
     }
 
+    document.querySelector('.js-name-generator').addEventListener('click', function () {
+      document.querySelector('.js-name-generated').innerHTML = nameGenerator()
+    })
+
     swipe(_pjSwipe)
     _cityLink()
   }
@@ -162,7 +166,6 @@ export const master = (ctx) => {
   const _cityLink = () => {
     let link = `http://fantasycities.watabou.ru/?size=${city.size}&hub=0&random=0&citadel=${city.citadel}&plaza=1&temple=1&walls=${city.citadel}&shantytown=0&river=${city.river}&coast=${city.coast}`
     document.querySelector('.js-city-link').href = link
-    console.log(city)
   }
 
   const _copyPj = (e) => {
