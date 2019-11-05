@@ -41,6 +41,37 @@ export const masterLayout = () => {
       <p> <a href="/" target="_blank" class="btn btn--wide">Bestiario</a> </p>
       <p> <a href="/" target="_blank" class="btn btn--wide">NPCs</a> </p>-->
       <p> <a class="btn btn--wide js-command" data-command="/2d20">Ventaja</a> </p>
+      <h2>Time tracker</h2>
+      <p>
+        <div class="container--flex">
+          <div class="content-fg1"><button class="btn btn--wide js-timetracker-minus" data-time="-1">-</button></div>
+          <div class="content-fg1"><span class="js-timetracker">0</span></div>
+          <div class="content-fg1"><button class="btn btn--wide js-timetracker-plus" data-time="+1">+</button></div>
+        </div>
+      </p>
+      <h2>Crear ciudad</h2>
+      <p>
+        <div class="container--flex">
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citycitadel="0">Castillo</button></div>
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-cityriver="0">Rio</button></div>
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citycoast="0">Costa</button></div>
+        </div>
+        <div class="container--flex">
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citysize="8">Pequeña</button></div>
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle active js-city" data-citysize="20">Mediana</button></div>
+          <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citysize="50">Grande</button></div>
+        </div>
+        <div class="container--flex">
+          <div class="content-fg1"><a href="" target="_blank" class="btn btn--wide btn--principal js-city-link" data-time="-1">Crear ciudad</a></div>
+        </div>
+      </p>
+      <h2>Generar nombre</h2>
+      <p>
+        <div class="">
+          <button class="btn btn--wide btn--toggle js-name-generator">Generar nombre</button>
+          <p class="js-name-generated name-generated"></p>
+        </div>
+      </p>
       <h2>Importar PJ</h2>
       <p>
         <form class="master-copy-pj container--flex">
@@ -49,31 +80,9 @@ export const masterLayout = () => {
         </form>
       </p>
       <div class="master-copy-pj-error"></div>
-      <h2>Time tracker</h2>
-      <div class="container--flex">
-        <div class="content-fg1"><button class="btn btn--wide js-timetracker-minus" data-time="-1">-</button></div>
-        <div class="content-fg1"><span class="js-timetracker">0</span></div>
-        <div class="content-fg1"><button class="btn btn--wide js-timetracker-plus" data-time="+1">+</button></div>
-      </div>
-      <h2>Crear ciudad</h2>
-      <div class="container--flex">
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citycitadel="0">Castillo</button></div>
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-cityriver="0">Rio</button></div>
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citycoast="0">Costa</button></div>
-      </div>
-      <div class="container--flex">
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citysize="8">Pequeña</button></div>
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle active js-city" data-citysize="20">Mediana</button></div>
-        <div class="content-fg1"><button class="btn btn--wide btn--toggle js-city" data-citysize="50">Grande</button></div>
-      </div>
-      <div class="container--flex">
-        <div class="content-fg1"><a href="" target="_blank" class="btn btn--wide btn--principal js-city-link" data-time="-1">Crear ciudad</a></div>
-      </div>
-      <h2>Generar nombre</h2>
-      <div class="">
-        <button class="btn btn--wide btn--toggle js-name-generator">Generar nombre</button>
-        <p class="js-name-generated name-generated"></p>
-      </div>
+      <p>
+        <button class="btn btn--wide js-clear-log">Limpiar log</button>
+      </p>
     </div>
     <nav class="tabs row">
       <button class="btn btn--flat content-fg1 js-tab js-tab-list" data-tab="list">Lista</button>

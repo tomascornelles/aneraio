@@ -138,6 +138,18 @@ export const master = (ctx) => {
       document.querySelector('.js-name-generated').innerHTML = nameGenerator()
     })
 
+    document.querySelector('.js-clear-log').addEventListener('click', function () {
+      firebase.database().ref('/campaigns/' + campaign + '/chat').once('value', function (snapshot) {
+        let msgs = snapshot.val()
+        for (const id in msgs) {
+          if (msgs.hasOwnProperty(id)) {
+            const element = msgs[id]
+            if (element.id === 'log') firebase.database().ref('/campaigns/' + campaign + '/chat/' + id).remove()
+          }
+        }
+      })
+    })
+
     swipe(_pjSwipe)
     _cityLink()
   }
