@@ -43,7 +43,7 @@ export const pjTemplate = (pj, editable) => {
           <td><span class="stat">${parseInt(pj.soul) + parseInt(pj.ac)}</span></td>
         <tr>
       </table>
-      <div class="stress stress--${Math.round(parseInt(pj.stress) / (10 + 2 * parseInt(pj.body)) ) * 10}"></div>
+      <div class="stress stress--${Math.round(parseInt(pj.stress) / (10 + 2 * parseInt(pj.body))) * 10}"></div>
       <p><strong>Equipo</strong> (Riqueza: ${pj.wealth})</p>
       <div ${contenteditable} data-pj="${pj.id}" data-attribute="equip" class="pj-input">${pj.equip}</div>
       <p><strong>Habilidades</strong></p>
