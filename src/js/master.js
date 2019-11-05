@@ -8,6 +8,12 @@ export const master = (ctx) => {
   let campaign = ctx.params.campaign
   let campaignData
   let tab = 'chat'
+  let city = {
+    size: 20,
+    citadel: 0,
+    river: 0,
+    coast: 0
+  }
 
   const _init = (campaign) => {
     if (window.sessionStorage.getItem('campaign') !== campaign || window.sessionStorage.getItem('master') !== 'true') {
@@ -74,7 +80,6 @@ export const master = (ctx) => {
       })
     }
 
-
     document.querySelector('.master-copy-pj').addEventListener('submit', _copyPj)
     firebase.database().ref('/campaigns/' + campaign).on('value', function (snapshot) {
       let campaign = snapshot.val()
@@ -89,7 +94,48 @@ export const master = (ctx) => {
       _timetracker('-', time)
     })
 
+    let btnCity = document.querySelectorAll('.js-city')
+    for (let i = 0; i < btnCity.length; i++) {
+      btnCity[i].addEventListener('click', function () {
+        if (typeof this.dataset.citycitadel !== 'undefined') {
+          if (this.dataset.citycitadel === '0') {
+            this.dataset.citycitadel = '1'
+            this.classList.add('active')
+          } else {
+            this.dataset.citycitadel = '0'
+            this.classList.remove('active')
+          }
+          city.citadel = this.dataset.citycitadel
+        } else if (typeof this.dataset.cityriver !== 'undefined') {
+          if (this.dataset.cityriver === '0') {
+            this.dataset.cityriver = '1'
+            this.classList.add('active')
+          } else {
+            this.dataset.cityriver = '0'
+            this.classList.remove('active')
+          }
+          city.river = this.dataset.cityriver
+        } else if (typeof this.dataset.citycoast !== 'undefined') {
+          if (this.dataset.citycoast === '0') {
+            this.dataset.citycoast = '1'
+            this.classList.add('active')
+          } else {
+            this.dataset.citycoast = '0'
+            this.classList.remove('active')
+          }
+          city.coast = this.dataset.citycoast
+        } else if (typeof this.dataset.citysize !== 'undefined') {
+          document.querySelector(`[data-citysize='${city.size}']`).classList.remove('active')
+          city.size = this.dataset.citysize
+          this.classList.add('active')
+        }
+
+        _cityLink()
+      })
+    }
+
     swipe(_pjSwipe)
+    _cityLink()
   }
 
   const _timetracker = (sign, time) => {
@@ -111,6 +157,12 @@ export const master = (ctx) => {
             ? 'dawn'
             : 'night'
     firebase.database().ref('/campaigns/' + campaign).update({time: time, header: header})
+  }
+
+  const _cityLink = () => {
+    let link = `http://fantasycities.watabou.ru/?size=${city.size}&hub=0&random=0&citadel=${city.citadel}&plaza=1&temple=1&walls=${city.citadel}&shantytown=0&river=${city.river}&coast=${city.coast}`
+    document.querySelector('.js-city-link').href = link
+    console.log(city)
   }
 
   const _copyPj = (e) => {
